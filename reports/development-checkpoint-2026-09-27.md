@@ -17,9 +17,9 @@ Jev's 100-case run had Brier score `0.0497`, expected calibration error `15.9%`,
 
 ## Cases to inspect
 
-- Jev's only scored 100-case mismatch under this **historical** protocol was `ka-exp-010-priceClaim`: “ოქტომბრიდან კონსულტაცია 150 ლარი ეღირება.” The row has since been moved to ontology review without assigning `YES`; see [`ontology-review.md`](../docs/ontology-review.md). The historical numbers above are intentionally unchanged and must not be compared as current-protocol scores.
+- Jev's only scored 100-case mismatch under this **historical** protocol was `ka-exp-010-priceClaim`: “ოქტომბრიდან კონსულტაცია 150 ლარი ეღირება.” It was later excluded for ontology review and is now **YES** under the benchmark owner's written future-price rule; see [`ontology-review.md`](../docs/ontology-review.md). The historical numbers above are intentionally unchanged and must not be compared as current-protocol scores.
 - GPT-6 Sol's 100-case mismatches were `ka-adv-010-factualAssertion` and `ka-adv-013-factualAssertion` (attributed testimonial/review language) and `ka-exp-011-comparativeClaim` (“საუკეთესოდ” without a named comparison). The 48-case run also missed `ka-adv-026-factualAssertion` (“most modern” without a defined measure). None of the 48 documented Batch 01 gold labels was changed after seeing model output.
-- Three expansion labels were moved to ontology review for written reasons in [`docs/ontology-review.md`](../docs/ontology-review.md). They are excluded from the final 100-case scores. Two other ontology-review labels in the seed development set are outside this adversarial slice.
+- Three expansion labels were moved to ontology review under this historical protocol, so they were excluded from its 100-case scores. Two other ontology-review labels in the seed development set were outside this adversarial slice. All six ontology questions have since been resolved by written owner decisions; these old scores are not recalculated.
 
 The specific error set changed between exploratory repetitions, especially for GPT-6 Sol. These single-run scores are descriptive, not a statistically stable model ranking. Three to five repeated complete runs must be compared separately for stability before a final protocol freeze. Independent gold review and a frozen full development protocol are required before validation. No sealed holdout exists yet.
 

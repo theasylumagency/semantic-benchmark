@@ -30,17 +30,16 @@ assert len(items) == len({item["id"] for item in items})
 assert len(items) == len({(item["groupId"], item["contract"]) for item in items})
 assert all(len(splits) == 1 for splits in groups.values())
 assert all(len(splits) == 1 for splits in text_splits.values())
-assert len(items) == 403
+assert len(items) == 404
 assert len(groups) == len(text_splits) == 139
-assert Counter(item["source"] for item in items) == {"seed": 303, "adversarial-batch-01": 48, "adversarial-expansion": 52}
+assert Counter(item["source"] for item in items) == {"seed": 304, "adversarial-batch-01": 48, "adversarial-expansion": 52}
 documented = {item["id"]: item for item in documented_cases()}
 actual_documented = {item["id"]: item for item in items if item["source"] == "adversarial-batch-01"}
 assert set(documented) == set(actual_documented)
 assert all({key: value for key, value in actual_documented[case_id].items() if key != "groupId"} ==
            {key: value for key, value in case.items() if key != "groupId"}
            for case_id, case in documented.items())
-assert sum(item["expected"] is None for item in items) == 6
-assert all(item["split"] == "development" for item in items if item["expected"] is None)
+assert sum(item["expected"] is None for item in items) == 0
 counts = Counter(item["contract"] for item in items)
 assert len(counts) == 10 and min(counts.values()) >= 15
 for split in files:
@@ -55,11 +54,31 @@ assert lookup["ka-text-013", "factualAssertion"] is False
 assert lookup["ka-text-017", "factualAssertion"] is False
 assert lookup["ka-text-020", "factualAssertion"] is True
 assert lookup["ka-text-047", "factualAssertion"] is True
-assert lookup["ka-text-054", "clinicalOutcomeClaim"] is None
-assert lookup["ka-exp-text-002", "quantifiedClaim"] is None
-assert lookup["ka-exp-text-005", "clinicalOutcomeClaim"] is None
-assert lookup["ka-exp-text-005", "guaranteeClaim"] is None
-assert lookup["ka-exp-text-010", "priceClaim"] is None
+assert lookup["ka-text-054", "clinicalOutcomeClaim"] is True
+assert lookup["ka-text-054", "proofRequirement"] is True
+assert lookup["ka-exp-text-002", "quantifiedClaim"] is False
+assert lookup["ka-exp-text-005", "clinicalOutcomeClaim"] is False
+assert lookup["ka-exp-text-005", "guaranteeClaim"] is False
+assert lookup["ka-exp-text-010", "priceClaim"] is True
+assert lookup["ka-text-050", "quantifiedClaim"] is False
+# Analogous wording in both splits preserves the explicit-number, stated-outcome,
+# and brand-asserted-price distinctions in the canonical decisions.
+assert lookup["ka-text-042", "clinicalOutcomeClaim"] is True
+assert lookup["ka-text-087", "clinicalOutcomeClaim"] is True
+assert lookup["ka-exp-text-012", "clinicalOutcomeClaim"] is True
+assert lookup["ka-text-022", "clinicalOutcomeClaim"] is False
+assert lookup["ka-text-043", "clinicalOutcomeClaim"] is False
+assert lookup["ka-text-029", "quantifiedClaim"] is True
+assert lookup["ka-text-090", "quantifiedClaim"] is True
+assert lookup["ka-text-091", "quantifiedClaim"] is False
+assert lookup["ka-text-094", "quantifiedClaim"] is False
+assert lookup["ka-text-021", "clinicalOutcomeClaim"] is True
+assert lookup["ka-adv-text-029", "clinicalOutcomeClaim"] is True
+assert lookup["ka-text-017", "guaranteeClaim"] is True
+assert lookup["ka-text-084", "guaranteeClaim"] is True
+assert lookup["ka-text-007", "priceClaim"] is True
+assert lookup["ka-adv-text-014", "priceClaim"] is False
+assert lookup["ka-adv-text-045", "priceClaim"] is False
 assert lookup["ka-adv-text-003", "discountClaim"] is False
 assert lookup["ka-adv-text-003", "factualAssertion"] is True
 reviews = json.loads((ROOT / "reviews.json").read_text(encoding="utf-8"))

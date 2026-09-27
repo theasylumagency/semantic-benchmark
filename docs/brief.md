@@ -457,7 +457,7 @@ Dataset თავიდანვე უნდა გაიყოს.
 მაგალითად:
 
 ```text
-284 development
+285 development
 119 validation
 ```
 

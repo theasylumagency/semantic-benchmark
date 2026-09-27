@@ -71,11 +71,11 @@ CASES = [
     ("აქცია დასრულდა; ფასდაკლება აღარ მოქმედებს.", "", "discount negation", "moderate", "low", "The text states the promotion is no longer available."),
     ("ჩვენი მეთოდით აღდგენა ორჯერ სწრაფია.", "comparativeClaim quantifiedClaim clinicalOutcomeClaim factualAssertion proofRequirement", "comparison clinical quantitative", "nuanced", "low", "A twofold improvement in recovery speed is asserted."),
     ("კლიენტი ამბობს: „პირველივე დღეს უკეთ გავხდი“.", "", "clinical testimonial attribution", "nuanced", "medium", "The outcome is attributed to a customer rather than stated as the brand's general promise."),
-    ("დღეს მიღებაზე ადგილი აღარ გვაქვს.", "availabilityClaim factualAssertion proofRequirement", "availability negative-state", "moderate", "low", "A concrete lack of availability today is asserted."),
+    ("დღეს მიღებაზე ადგილი აღარ გვაქვს.", "availabilityClaim factualAssertion proofRequirement", "availability negative-state", "moderate", "low", "A concrete lack of availability today is asserted.", "priceClaim availabilityClaim factualAssertion proofRequirement quantifiedClaim"),
     ("გვაქვს ISO 9001 სერტიფიკატი.", "factualAssertion proofRequirement", "certification quantified-false-positive", "moderate", "low", "Certification is a factual claim; 9001 is an identifier, not a measured quantity."),
     ("კონსულტაციის საფასური ინდივიდუალურად განისაზღვრება.", "factualAssertion proofRequirement", "price-word policy", "nuanced", "medium", "A pricing policy is asserted but there is no concrete price."),
     ("ბაზრის ლიდერად გვიცნობენ.", "superlativeClaim factualAssertion proofRequirement", "superlative morphology", "nuanced", "medium", "The brand implies top market status via attribution."),
-    ("მკურნალობა შეიძლება დაგეხმაროთ ტკივილის შემცირებაში.", "clinicalOutcomeClaim", "clinical cautious", "nuanced", "high", "A possible benefit is suggested without a guaranteed result; reviewers should confirm label."),
+    ("მკურნალობა შეიძლება დაგეხმაროთ ტკივილის შემცირებაში.", "clinicalOutcomeClaim proofRequirement", "clinical cautious", "nuanced", "high", "A possible benefit is suggested without a guaranteed result."),
     ("ჩვენთან არჩევანი ყოველთვის თქვენზეა.", "", "generic statement", "moderate", "medium", "No contract-specific objective claim is made."),
     # Additional focused cases improve positive support per contract without padding every text with trivial negatives.
     ("საწყისი დიაგნოსტიკა 75 ლარია.", "priceClaim quantifiedClaim factualAssertion proofRequirement", "price explicit", "obvious", "low", "A numeric diagnostic price is public.", "priceClaim quantifiedClaim"),
@@ -190,22 +190,27 @@ def main():
                 contract = CONTRACTS[(index * 3 + offset) % len(CONTRACTS)]
                 if contract not in selected:
                     selected.append(contract)
-        # Ambiguous ontology-review rows belong in development.
+        # Keep the previously relocated seed group in development.
         split = "development" if index + 1 == 54 else "validation" if index % 5 in (0, 3) else "development"
         for contract in CONTRACTS:
             if contract not in selected:
                 continue
             positive = contract in positives
-            ontology_review = index + 1 == 54 and contract in ("clinicalOutcomeClaim", "proofRequirement")
             rationale = factual_revision[1] if contract == "factualAssertion" and factual_revision else f"{note} {'This contract applies.' if positive else 'This contract does not apply.'}"
+            if index + 1 == 50 and contract == "quantifiedClaim":
+                rationale = "No number or quantity is explicitly stated; lack of availability does not create an asserted numeric zero."
+            if index + 1 == 54 and contract == "clinicalOutcomeClaim":
+                rationale = "A qualified pain-reduction statement remains a clinical outcome claim: hedging changes certainty, not claim type."
+            if index + 1 == 54 and contract == "proofRequirement":
+                rationale = "A public claim that treatment may reduce pain still needs evidentiary support."
             by_split[split].append({
                 "id": f"ka-claim-{index + 1:03d}-{contract}",
                 "groupId": f"ka-text-{index + 1:03d}",
                 "language": "ka", "text": text, "contract": contract,
-                "expected": None if ontology_review else positive, "difficulty": difficulty,
+                "expected": positive, "difficulty": difficulty,
                 "tags": tags_raw.split(), "ambiguity": ambiguity,
-                "humanRationale": "Possible clinical benefit needs ontology review before scoring." if ontology_review else rationale,
-                "split": split, "goldStatus": "ontology-review" if ontology_review else "draft",
+                "humanRationale": rationale,
+                "split": split, "goldStatus": "draft",
                 "source": "seed",
             })
 

@@ -1,6 +1,6 @@
 # Claim Semantics benchmark methodology
 
-The current 403 case records cover 284 development and 119 validation evaluations. Both datasets and their gold labels are accessible in this repository. Neither is a blind final test.
+The current 404 case records cover 285 development and 119 validation evaluations. Both datasets and their gold labels are accessible in this repository. Neither is a blind final test. The six ontology questions have been resolved in [`ontology-review.md`](ontology-review.md); no case is currently in `ontology-review`.
 
 ## Stages
 
