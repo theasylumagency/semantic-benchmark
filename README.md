@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# UNDA Semantic Benchmark KA
 
-## Getting Started
+დამოუკიდებელი სამუშაო გარემო ქართული semantic contract-ების შესაფასებლად. პირველი მოდულია **Claim Semantics**. Jev და ძლიერი baseline ერთსა და იმავე ტექსტებსა და contract-ებს ამუშავებენ. ეს რეპოზიტორია UNDA production სისტემას არ ცვლის.
 
-First, run the development server:
+## გაშვება
 
-```bash
+```powershell
+Copy-Item .env.example .env.local
+# შეავსეთ .env.local სერვერის გასაღებებით
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+გახსენით <http://localhost:3000>. `.env.local` Git-ში არ მოხვდება. Jev-ის გასაღები იქმნება პროვაიდერის ანგარიშში. API ფორმატი გადამოწმებულია [TypeSafe-ის ოფიციალურ OpenAPI სქემასთან](https://api.typesafe.ai/openapi.json): `POST /v1/systemone`, `state`, `model`, `questions`, `noul` პასუხი და token usage. სხვა სერვერზე გადასართავად გამოიყენეთ `JEV_API_URL`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Baseline არის **GPT-6 Sol, `xhigh` reasoning დონით** და მუშაობს [OpenAI Responses API](https://developers.openai.com/api/docs/guides/reasoning)-ზე. `.env.local`-ში შეავსეთ მხოლოდ `BASELINE_API_KEY`; მოდელი, reasoning დონე და endpoint უკვე მითითებულია. Baseline აბრუნებს `YES / NO / UNCERTAIN` ნიშნულს მკაცრი JSON სქემით. რადგან API ამ ამოცანაზე YES-ის ალბათობას არ აბრუნებს, baseline-ის calibration და confidence coverage არ დაითვლება. `xhigh`-ზე სრული ნაკრების გაშვება შეიძლება ხანგრძლივი და ფასიანი იყოს; ჯერ 10 ტექსტიანი სწრაფი ტესტი გაუშვით.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+საჯარო გარემოში ექსპერიმენტის დაწყება მხოლოდ `BENCHMARK_ACCESS_TOKEN`-ით შეიძლება. იგი სერვერის env ცვლადში და ეკრანის „გაშვების წვდომის კოდი“ ველში იწერება. კოდი ბრაუზერში მხოლოდ მიმდინარე სესიის განმავლობაში ინახება.
 
-## Learn More
+## სამუშაო თანმიმდევრობა
 
-To learn more about Next.js, take a look at the following resources:
+1. გაუშვით 10 ტექსტიანი სწრაფი development ტესტი, შემდეგ **Batch 01 · 48 case** და **Adversarial · 100 case**. ყველა adversarial case მხოლოდ development-შია.
+2. გადაამოწმეთ [canonical `factualAssertion` განმარტება](docs/factualAssertion.md), [Batch 01 gold-ები](docs/Cases.md) და [ონტოლოგიის ცვლილებები](docs/ontology-review.md). Model disagreement-ის გამო ნიშნული პირდაპირ არ შეცვალოთ: ჯერ განმარტება და მიზეზი წერილობით გადაამოწმეთ.
+3. საჭირო შესწორებების შემდეგ ხელახლა შექმენით მონაცემები: `python scripts/generate_dataset.py`. Development-ის სრული ნაკრებით შეარჩიეთ confidence ზღვარი.
+4. როცა contract-ები, gold, provider-ის ინსტრუქციები, output schema, confidence-ის წაკითხვა, development ნაკრები და შეფასების კოდი საბოლოოდ გადაიხედება, ეკრანზე ნაჩვენები **პროტოკოლის ვერსია** ჩაწერეთ `.env.local`-ში `BENCHMARK_FROZEN_PROTOCOL_VERSION` მნიშვნელობად. ეს არის ხელით დადასტურებული freeze; აპი ვერ ამოწმებს, ნამდვილად ჩატარდა თუ არა ადამიანური განხილვა. ნებისმიერი შესაბამისი ფაილის ან მოდელის პარამეტრის ცვლილება ვერსიას შეცვლის და holdout-ს ისევ ჩაკეტავს.
+5. Blind holdout გაიხსნება მხოლოდ გაყინული პროტოკოლითა და იმავე ვერსიაზე სრული, უშეცდომო development გაშვებით. Jev-ის ზღვარი ამ გაშვებიდან გადმოდის. იგივე ნაკრები გაუშვით GPT-6 Sol baseline-ზეც და შეადარეთ precision, recall, F1, latency და ფასი; probability მეტრიკები მხოლოდ Jev-ზე იქნება.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`datasets/claim-semantics/` შეიცავს **139 განსხვავებულ ქართულ ტექსტს / 403 contract case-ს**: 284 development, 119 holdout. მათ შორის 48 case პირდაპირ [Cases.md](docs/Cases.md)-დან მოდის, ხოლო 52 დამატებითი შეფასება adversarial მატრიცის მიხედვითაა შექმნილი. საწყის ნაკრებთან ტექსტის/contract-ის ოთხი დუბლიკატი ჩანაცვლებულია დოკუმენტირებული gold-ით. ერთი ბუნდოვანი seed ტექსტი holdout-იდან development-ში გადავიდა ontology review-სთვის. ყველა gold ჯერ სამუშაო ანოტაციაა: 398 `draft`, 5 `ontology-review`. `UNCERTAIN` gold ქულაში არ შედის, მაგრამ მოდელის პასუხი და დრო ინახება. ადამიანური განხილვა საბოლოო დასკვნისთვის აუცილებელია.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## მეტრიკების წაკითხვა
 
-## Deploy on Vercel
+- `პასუხის სიზუსტე`: სწორი პასუხების წილი მხოლოდ იმ case-ებზე, სადაც მოდელმა YES ან NO თქვა. `UNCERTAIN` ამ მნიშვნელობას არ ამცირებს.
+- `პასუხის დაფარვა` და `სრული სიზუსტე`: შესაბამისად, პასუხგაცემული case-ების წილი და სწორი პასუხების წილი ყველა შეფასებადი gold-ის მიმართ. მოდელების სამართლიანად შესადარებლად ეს მაჩვენებლები ერთად წაიკითხეთ.
+- `Brier score`: YES ალბათობის კვადრატული შეცდომა gold boolean-თან; ნაკლები უკეთესია.
+- `Calibration error`: confidence bucket-ში საშუალო confidence-ისა და ფაქტობრივი სიზუსტის შეწონილი სხვაობა.
+- `Coverage`: შეფასებადი gold-ის მქონე case-ებიდან რამდენ პასუხს მივიღებდით არჩეული confidence ზღვრის ზემოთ; ბუნდოვანი gold მნიშვნელი არ არის.
+- `Error capture`: 0.5-ზე გაჭრილი შეცდომების რა წილი მოხვდა ზღვრის ქვემოთ.
+- `p50 / p95 / p99`: ერთი ტექსტის შესაბამისი კითხვები ერთად გაგზავნილი მოთხოვნის სრული დრო. ეს არ არის თითო კითხვის ან მხოლოდ inference-ის დრო.
+- `Cost`: ითვლება რეალური token usage-ით მხოლოდ მაშინ, თუ შესაბამისი `*_USD_PER_M` ტარიფები მითითებულია. ტარიფი განზრახ არ არის ჩაშენებული.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+შედეგები ლოკალურად ინახება `reports/runs/*.json` ფაილებში და Git-ის გარეთ რჩება. თითო ანგარიში შეიცავს dataset და protocol hash-ს, მოდელს, ზღვარს, პასუხებს, გამორიცხულ gold-ს, შეცდომებს, მოთხოვნის დროსა და token usage-ს. ამ ეტაპზე არ გვაქვს Editorial Quality, Evidence Routing, ორი ადამიანის შეთანხმების შეფასება ან 1/5/10/20 კითხვიანი latency პროფილი; ეს შემდეგი ფაზებია, როგორც [ბრიფში](docs/brief.md) წერია.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## შემოწმება
+
+```powershell
+python scripts/check_dataset.py
+npm run lint
+npm run build
+```
