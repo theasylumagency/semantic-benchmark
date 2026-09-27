@@ -2,6 +2,7 @@
 
 import json
 import hashlib
+from datetime import datetime
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -84,13 +85,41 @@ assert lookup["ka-adv-text-003", "factualAssertion"] is True
 reviews = json.loads((ROOT / "reviews.json").read_text(encoding="utf-8"))
 assert isinstance(reviews, dict)
 by_id = {item["id"]: item for item in items}
-assert all(case_id in by_id and by_id[case_id]["goldStatus"] == "draft" and
-           isinstance(entry, dict) and isinstance(entry.get("reviewedAt"), str) and
-           entry.get("digest") == hashlib.sha256(json.dumps(by_id[case_id], ensure_ascii=False,
-                                                   separators=(",", ":")).encode("utf-8")).hexdigest()
-           for case_id, entry in reviews.items())
+stale_reviews = 0
+for case_id, entry in reviews.items():
+    assert case_id in by_id and isinstance(entry, dict)
+    item = by_id[case_id]
+    current_digest = hashlib.sha256(json.dumps(item, ensure_ascii=False,
+                                          separators=(",", ":")).encode("utf-8")).hexdigest()
+    assert isinstance(entry.get("digest"), str) and len(entry["digest"]) == 64
+    assert isinstance(entry.get("currentGold"), bool) or entry.get("currentGold") is None
+    if entry["digest"] != current_digest:
+        stale_reviews += 1
+    else:
+        assert entry["currentGold"] == item["expected"]
+    assert "first" in entry
+    for pass_name in ("first", "second"):
+        if pass_name not in entry:
+            continue
+        decision = entry[pass_name]
+        assert decision["status"] in ("reviewed", "needs-correction", "ontology-review")
+        datetime.fromisoformat(decision["createdAt"].replace("Z", "+00:00"))
+        if decision["status"] == "needs-correction":
+            assert isinstance(decision["proposedGold"], bool) and decision["proposedGold"] != entry["currentGold"]
+        if decision["status"] in ("needs-correction", "ontology-review"):
+            assert isinstance(decision["reason"], str) and decision["reason"].strip()
+        if decision["status"] == "reviewed":
+            assert entry["currentGold"] is not None
+    if "second" in entry:
+        assert item["difficulty"] == "nuanced" or item["ambiguity"] in ("medium", "high")
+        first, second = entry["first"], entry["second"]
+        expected_agreement = "agree" if first["status"] == second["status"] and first.get("proposedGold") == second.get("proposedGold") else "disagree"
+        assert entry["agreement"] == expected_agreement
+    else:
+        assert "agreement" not in entry
 print(f"Dataset OK: {len(items)} contract cases, {len(groups)} text groups, {len(counts)} contracts; "
       f"development={sum(item['split'] == 'development' for item in items)}, "
       f"validation={sum(item['split'] == 'validation' for item in items)}, "
       f"ontology-review={sum(item['goldStatus'] == 'ontology-review' for item in items)}, "
-      f"reviewed={len(reviews)}, draft={sum(item['goldStatus'] == 'draft' for item in items) - len(reviews)}")
+      f"first-pass={len(reviews) - stale_reviews}, second-pass={sum('second' in review for review in reviews.values())}, "
+      f"stale-reviews={stale_reviews}")

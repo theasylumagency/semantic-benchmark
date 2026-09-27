@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { datasetVersion, loadItems, listRuns, protocolFrozen, protocolVersion, saveRun, setReviewStatus } from "@/lib/benchmark/data";
+import { datasetVersion, loadItems, listRuns, protocolFrozen, protocolVersion, saveRun } from "@/lib/benchmark/data";
 import { evaluate } from "@/lib/benchmark/metrics";
 import { baselineConfiguration, providerAvailable, runGroup } from "@/lib/benchmark/providers";
 import type { BenchmarkItem, BenchmarkRun, ProviderId, Split } from "@/lib/benchmark/types";
@@ -23,6 +23,7 @@ export async function GET() {
       version: currentVersion,
       reviewedCount: allItems.filter((item) => item.goldStatus === "reviewed").length,
       draftCount: allItems.filter((item) => item.goldStatus === "draft").length,
+      needsCorrectionCount: allItems.filter((item) => item.goldStatus === "needs-correction").length,
       ontologyReviewCount: allItems.filter((item) => item.goldStatus === "ontology-review").length,
       total: allItems.length,
     },
@@ -33,28 +34,6 @@ export async function GET() {
     runs,
     writeProtected: Boolean(process.env.BENCHMARK_ACCESS_TOKEN) || process.env.NODE_ENV === "production",
   });
-}
-
-export async function PATCH(request: Request) {
-  if (!authorized(request)) return Response.json({ error: "Access token required for review changes" }, { status: 401 });
-  let body: { itemId?: unknown; status?: unknown };
-  try { body = await request.json(); }
-  catch { return Response.json({ error: "Invalid JSON" }, { status: 400 }); }
-  if (typeof body.itemId !== "string" || !["draft", "reviewed"].includes(body.status as string)) {
-    return Response.json({ error: "Invalid review change" }, { status: 400 });
-  }
-  try { await setReviewStatus(body.itemId, body.status as "draft" | "reviewed"); }
-  catch (error) { return Response.json({ error: error instanceof Error ? error.message : "Review change failed" }, { status: 400 }); }
-  const [development, validation, version, currentProtocol] = await Promise.all([
-    loadItems("development"), loadItems("validation"), datasetVersion(), protocolVersion(),
-  ]);
-  const allItems = [...development, ...validation];
-  return Response.json({ dataset: {
-    development, validation, version, total: allItems.length,
-    reviewedCount: allItems.filter((item) => item.goldStatus === "reviewed").length,
-    draftCount: allItems.filter((item) => item.goldStatus === "draft").length,
-    ontologyReviewCount: allItems.filter((item) => item.goldStatus === "ontology-review").length,
-  }, protocolVersion: currentProtocol, validationFrozen: protocolFrozen(currentProtocol) });
 }
 
 type RunRequest = { provider?: unknown; split?: unknown; threshold?: unknown; sampleGroups?: unknown; calibrationRunId?: unknown };

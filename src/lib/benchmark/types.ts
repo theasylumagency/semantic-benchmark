@@ -15,7 +15,7 @@ export type BenchmarkItem = {
   ambiguity: "low" | "medium" | "high";
   humanRationale: string;
   split: Split;
-  goldStatus: "draft" | "reviewed" | "ontology-review";
+  goldStatus: "draft" | "reviewed" | "needs-correction" | "ontology-review";
   source: "seed" | "adversarial-batch-01" | "adversarial-expansion";
 };
 

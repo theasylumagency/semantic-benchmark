@@ -6,7 +6,7 @@ import { comparableRuns, compareRepeatedRuns } from "@/lib/benchmark/stability";
 import type { BenchmarkItem, BenchmarkRun, Prediction, ProviderId, Split } from "@/lib/benchmark/types";
 
 type Snapshot = {
-  dataset: { development: BenchmarkItem[]; validation: BenchmarkItem[]; version: string; reviewedCount: number; draftCount: number; ontologyReviewCount: number; total: number };
+  dataset: { development: BenchmarkItem[]; validation: BenchmarkItem[]; version: string; reviewedCount: number; draftCount: number; needsCorrectionCount: number; ontologyReviewCount: number; total: number };
   providers: Record<ProviderId, boolean>;
   baselineConfiguration: { model: string; reasoningEffort: string };
   protocolVersion: string;
@@ -31,7 +31,7 @@ function MetricCard({ label, value, detail, tone = "plain" }: { label: string; v
   return <div className={`metric-card ${tone}`}><div className="metric-label">{label}</div><div className="metric-value">{value}</div><div className="metric-detail">{detail}</div></div>;
 }
 
-function CaseRow({ item, prediction, onReview, busy, provider }: { item: BenchmarkItem; prediction?: Prediction; onReview: (item: BenchmarkItem) => void; busy: boolean; provider?: ProviderId }) {
+function CaseRow({ item, prediction, provider }: { item: BenchmarkItem; prediction?: Prediction; provider?: ProviderId }) {
   return <article className="case-row">
     <div className="case-main">
       <div className="case-id">{item.id} <span>·</span> {item.source} <span>·</span> {item.difficulty} <span>·</span> ambiguity: {item.ambiguity}</div>
@@ -39,7 +39,7 @@ function CaseRow({ item, prediction, onReview, busy, provider }: { item: Benchma
       <div className="case-tags"><span className="contract-tag">{CONTRACTS[item.contract].label}</span>{item.tags.filter((tag) => !tag.startsWith("adversarial-")).slice(0, 3).map((tag) => <span key={tag}>{tag}</span>)}</div>
       <details className="case-rationale"><summary>სამუშაო განმარტება</summary><p>{item.humanRationale}</p></details>
       {prediction?.error ? <div className="case-error">{prediction.error}</div> : null}
-      <div className="review-action"><span>Gold: {item.goldStatus}</span>{item.goldStatus === "ontology-review" ? <span>ჯერ ონტოლოგიის წესი გადასაწყვეტია</span> : <button type="button" disabled={busy} onClick={() => onReview(item)}>{busy ? "ინახება…" : item.goldStatus === "reviewed" ? "Draft-ად დაბრუნება" : "გადავხედე · Reviewed"}</button>}</div>
+      <div className="review-action"><span>Gold: {item.goldStatus}</span></div>
     </div>
     <div className="case-outcome">
       <div><small>სამუშაო ნიშნული</small><strong className={item.expected === null ? "muted" : item.expected ? "yes" : "no"}>{item.expected === null ? "ONTOLOGY REVIEW" : item.expected ? "YES" : "NO"}</strong></div>
@@ -66,7 +66,6 @@ export default function Workbench({ initial }: { initial: Snapshot }) {
   const [outcomeFilter, setOutcomeFilter] = useState("all");
   const [ambiguityFilter, setAmbiguityFilter] = useState("all");
   const [goldFilter, setGoldFilter] = useState("all");
-  const [reviewBusyId, setReviewBusyId] = useState("");
   const [visibleCount, setVisibleCount] = useState(12);
 
   const selectedRun = snapshot.runs.find((run) => run.id === selectedId) || snapshot.runs[0];
@@ -110,22 +109,6 @@ export default function Workbench({ initial }: { initial: Snapshot }) {
     finally { setRunning(false); }
   }
 
-  async function changeReview(item: BenchmarkItem) {
-    setReviewBusyId(item.id); setNotice("");
-    try {
-      const response = await fetch("/api/workbench", {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) },
-        body: JSON.stringify({ itemId: item.id, status: item.goldStatus === "reviewed" ? "draft" : "reviewed" }),
-      });
-      const payload = await response.json();
-      if (!response.ok) throw new Error(payload.error || `HTTP ${response.status}`);
-      setSnapshot((current) => ({ ...current, dataset: payload.dataset, protocolVersion: payload.protocolVersion, validationFrozen: payload.validationFrozen }));
-      setNotice(`${item.id}: ${item.goldStatus === "reviewed" ? "draft" : "reviewed"} შენახულია. პროტოკოლის ვერსია განახლდა.`);
-    } catch (error) { setNotice(error instanceof Error ? error.message : "გადახედვა ვერ შეინახა"); }
-    finally { setReviewBusyId(""); }
-  }
-
   return <div className="shell">
     <aside className="sidebar">
       <div className="brand"><span className="brand-mark">U<span>.</span></span><div><strong>UNDA</strong><small>RESEARCH LAB</small></div></div>
@@ -135,6 +118,7 @@ export default function Workbench({ initial }: { initial: Snapshot }) {
         <a href="#results"><span className="nav-icon">▥</span> შედეგები</a>
         <a href="#stability"><span className="nav-icon">◇</span> სტაბილურობა</a>
         <a href="#dataset"><span className="nav-icon">▤</span> Dataset</a>
+        <a href="/gold-review"><span className="nav-icon">✓</span> Blind Gold Review</a>
         <a href="#method"><span className="nav-icon">◎</span> მეთოდოლოგია</a>
       </nav>
       <div className="sidebar-bottom"><span className="online-dot" /> კვლევის გარემო <span className="version">v0.1</span></div>
@@ -157,7 +141,7 @@ export default function Workbench({ initial }: { initial: Snapshot }) {
           <MetricCard label="შეცდომების დაჭერა" value={percent(selectedRun?.metrics.errorCapture)} detail="დაბალი confidence-ის ნაწილში" />
           <MetricCard label="პასუხის დრო · p95" value={selectedRun?.metrics.latencyMs.p95 == null ? "—" : `${selectedRun.metrics.latencyMs.p95} ms`} detail="ერთი ტექსტი / რამდენიმე კითხვა" />
         </div>
-        <div className="overview-strip"><div><strong>{snapshot.dataset.total}</strong><span>contract case</span></div><div><strong>{snapshot.dataset.development.length}</strong><span>development</span></div><div><strong>{snapshot.dataset.validation.length}</strong><span>validation</span></div><div><strong>{snapshot.dataset.ontologyReviewCount}</strong><span>ontology-review დარჩა</span></div><div><strong>{snapshot.dataset.reviewedCount}/{snapshot.dataset.total}</strong><span>გადამოწმებული · {snapshot.dataset.draftCount} draft დარჩა</span></div></div>
+        <div className="overview-strip"><div><strong>{snapshot.dataset.total}</strong><span>contract case</span></div><div><strong>{snapshot.dataset.development.length}</strong><span>development</span></div><div><strong>{snapshot.dataset.validation.length}</strong><span>validation</span></div><div><strong>{snapshot.dataset.ontologyReviewCount}</strong><span>ontology-review დარჩა</span></div><div><strong>{snapshot.dataset.reviewedCount}/{snapshot.dataset.total}</strong><span>{snapshot.dataset.draftCount} draft · {snapshot.dataset.needsCorrectionCount} correction</span></div></div>
       </section>
 
       <section className="section" aria-labelledby="run-title">
@@ -168,7 +152,7 @@ export default function Workbench({ initial }: { initial: Snapshot }) {
             <label>მონაცემები<select value={split} onChange={(event) => setSplit(event.target.value as Split)}><option value="development">Development</option><option value="validation">Validation</option></select></label>
             {split === "development" ? <>{provider === "jev" ? <label>Confidence ზღვარი<select value={threshold} onChange={(event) => setThreshold(event.target.value)}><option value="0.70">70%</option><option value="0.80">80%</option><option value="0.85">85%</option><option value="0.90">90%</option><option value="0.95">95%</option></select></label> : null}<label>მასშტაბი<select value={sampleGroups} onChange={(event) => setSampleGroups(event.target.value)}><option value="10">10 ტექსტი · სწრაფი ტესტი</option><option value="batch-01">Batch 01 · 48 case</option><option value="adversarial-all">Adversarial · 100 case</option><option value="all">ყველა · სრული გაშვება</option></select></label></> : <div className="validation-info">{!snapshot.validationFrozen ? "Validation ჩაკეტილია პროტოკოლის გაყინვამდე" : provider === "jev" ? "ზღვარი იკეტება სრული development გაშვებიდან:" : "სრული development გაშვება:"} <strong>{snapshot.validationFrozen ? calibration ? provider === "jev" ? `${Math.round(calibration.threshold * 100)}%` : "მზად არის" : "ჯერ არ არის" : "გაყინვა საჭიროა"}</strong></div>}
           </div>
-          {snapshot.writeProtected ? <label className="token-field">გაშვებისა და review-ის წვდომის კოდი<input type="password" value={token} onChange={(event) => setToken(event.target.value)} placeholder="BENCHMARK_ACCESS_TOKEN" autoComplete="off" /></label> : null}
+          {snapshot.writeProtected ? <label className="token-field">გაშვების წვდომის კოდი<input type="password" value={token} onChange={(event) => setToken(event.target.value)} placeholder="BENCHMARK_ACCESS_TOKEN" autoComplete="off" /></label> : null}
           <div className="run-footer"><div className="run-hint">{!snapshot.providers[provider] ? "ამ მოდელის გასაშვებად სერვერზე API გასაღები მიუთითეთ." : split === "validation" && !snapshot.validationFrozen ? "ჯერ გადაამოწმეთ gold და გაყინეთ პროტოკოლი." : split === "validation" && !calibration ? "ჯერ გაუშვით development-ის სრული ნაკრები იმავე მოდელით." : "შედეგები ლოკალურად შეინახება reports/runs საქაღალდეში."}</div><button className="primary-button" type="button" onClick={startRun} disabled={runDisabled}>{running ? "მიმდინარეობს…" : "გაშვების დაწყება"}<span>↗</span></button></div>
           <div className="run-hint">პროტოკოლის ვერსია: <code>{snapshot.protocolVersion}</code> · {snapshot.validationFrozen ? "გაყინულია" : "გაყინული არ არის"}. Review-ის ცვლილება ვერსიას ცვლის.</div>
           {notice ? <div className="notice" role="status">{notice}</div> : null}
@@ -194,7 +178,7 @@ export default function Workbench({ initial }: { initial: Snapshot }) {
           {stability ? <p className="stability-note">{stability.itemCount} case · {stability.runIds.length} გაშვება. ერთნაირი ნიშნული ნიშნავს თანხმობას ყველა გაშვებაში; ალბათობის საშუალო სხვაობა ითვლება ყველა წყვილზე. ზღვრის გადაკვეთა ითვლის case-ებს, რომლებშიც p გადადის 0.40 ან 0.60 საზღვარზე.</p> : null}</div>
       </section>
 
-      <section className="section" id="dataset" aria-labelledby="dataset-title"><div className="section-heading"><div><div className="kicker">05 / DATASET</div><h2 id="dataset-title">ქართული ტესტური ქეისები</h2></div><span className="section-note">Development და validation gold ხელმისაწვდომია ადამიანური review-სთვის</span></div>
+      <section className="section" id="dataset" aria-labelledby="dataset-title"><div className="section-heading"><div><div className="kicker">05 / DATASET</div><h2 id="dataset-title">ქართული ტესტური ქეისები</h2></div><a className="section-note" href="/gold-review">გახსენით Blind Gold Review →</a></div>
         <div className="dataset-toolbar">
           <div className="search-wrap"><span>⌕</span><input aria-label="ქეისების ძიება" placeholder="მოძებნეთ ტექსტი ან tag..." value={query} onChange={(event) => { setQuery(event.target.value); setVisibleCount(12); }} /></div>
           <select aria-label="Dataset split filter" value={inspectionSplit} onChange={(event) => { setInspectionSplit(event.target.value as Split); setVisibleCount(12); }}><option value="development">Development · {snapshot.dataset.development.length}</option><option value="validation">Validation · {snapshot.dataset.validation.length}</option></select>
@@ -202,10 +186,10 @@ export default function Workbench({ initial }: { initial: Snapshot }) {
           <select aria-label="Source filter" value={sourceFilter} onChange={(event) => { setSourceFilter(event.target.value); setVisibleCount(12); }}><option value="all">ყველა წყარო</option><option value="seed">საწყისი</option><option value="adversarial-batch-01">Adversarial 01</option><option value="adversarial-expansion">გაფართოება</option></select>
           <select aria-label="Difficulty filter" value={difficultyFilter} onChange={(event) => { setDifficultyFilter(event.target.value); setVisibleCount(12); }}><option value="all">ყველა სირთულე</option><option value="obvious">აშკარა</option><option value="moderate">საშუალო</option><option value="nuanced">ნიუანსური</option></select>
           <select aria-label="Ambiguity filter" value={ambiguityFilter} onChange={(event) => { setAmbiguityFilter(event.target.value); setVisibleCount(12); }}><option value="all">ყველა ბუნდოვანება</option><option value="low">დაბალი</option><option value="medium">საშუალო</option><option value="high">მაღალი</option></select>
-          <select aria-label="Gold status filter" value={goldFilter} onChange={(event) => { setGoldFilter(event.target.value); setVisibleCount(12); }}><option value="all">ყველა gold status</option><option value="draft">Draft</option><option value="ontology-review">Ontology review</option><option value="reviewed">Reviewed</option></select>
+          <select aria-label="Gold status filter" value={goldFilter} onChange={(event) => { setGoldFilter(event.target.value); setVisibleCount(12); }}><option value="all">ყველა gold status</option><option value="draft">Draft</option><option value="needs-correction">Needs correction</option><option value="ontology-review">Ontology review</option><option value="reviewed">Reviewed</option></select>
           <select aria-label="Outcome filter" value={outcomeFilter} onChange={(event) => { setOutcomeFilter(event.target.value); setVisibleCount(12); }}><option value="all">ყველა შედეგი</option><option value="mismatch">შეცდომები</option><option value="unscored">მოდელის გაურკვეველი / წარუმატებელი</option><option value="ontology-review">Gold გადასახედი</option></select>
         </div>
-        <div className="case-list">{filteredItems.slice(0, visibleCount).map((item) => <CaseRow key={item.id} item={item} prediction={selectedRun?.split === inspectionSplit ? predictionMap.get(item.id) : undefined} provider={selectedRun?.split === inspectionSplit ? selectedRun.provider : undefined} onReview={changeReview} busy={reviewBusyId === item.id} />)}{filteredItems.length === 0 ? <div className="empty-inline padded">შესაბამისი ქეისი ვერ მოიძებნა.</div> : null}</div>
+        <div className="case-list">{filteredItems.slice(0, visibleCount).map((item) => <CaseRow key={item.id} item={item} prediction={selectedRun?.split === inspectionSplit ? predictionMap.get(item.id) : undefined} provider={selectedRun?.split === inspectionSplit ? selectedRun.provider : undefined} />)}{filteredItems.length === 0 ? <div className="empty-inline padded">შესაბამისი ქეისი ვერ მოიძებნა.</div> : null}</div>
         {filteredItems.length > visibleCount ? <button className="more-button" onClick={() => setVisibleCount((count) => count + 20)}>მეტის ჩვენება · {filteredItems.length - visibleCount} დარჩა ↓</button> : null}
       </section>
 

@@ -22,12 +22,12 @@ Baseline არის **GPT-6 Sol, `xhigh` reasoning დონით** და �
 ## სამუშაო თანმიმდევრობა
 
 1. გაუშვით 10 ტექსტიანი სწრაფი development ტესტი, შემდეგ **Batch 01 · 48 case** და **Adversarial · 100 case**. ყველა adversarial case მხოლოდ development-შია.
-2. გადაამოწმეთ [canonical `factualAssertion` განმარტება](docs/factualAssertion.md), [Batch 01 gold-ები](docs/Cases.md) და [ონტოლოგიის ცვლილებები](docs/ontology-review.md). Model disagreement-ის გამო ნიშნული პირდაპირ არ შეცვალოთ: ჯერ განმარტება და მიზეზი წერილობით გადაამოწმეთ.
+2. გახსენით [Blind Gold Review](docs/gold-review.md) მისამართზე `/gold-review`: ჯერ Development, შემდეგ Validation, ბოლოს რთული ქეისების მეორე გავლა. გადაამოწმეთ [canonical `factualAssertion` განმარტება](docs/factualAssertion.md), [Batch 01 gold-ები](docs/Cases.md) და [ონტოლოგიის ცვლილებები](docs/ontology-review.md). Model disagreement-ის გამო ნიშნული პირდაპირ არ შეცვალოთ: ჯერ განმარტება და მიზეზი წერილობით გადაამოწმეთ.
 3. საჭირო შესწორებების შემდეგ ხელახლა შექმენით მონაცემები: `python scripts/generate_dataset.py`. Development-ის სრული ნაკრებით შეარჩიეთ confidence ზღვარი.
 4. როცა contract-ები, gold, review ჩანაწერები, provider-ის ინსტრუქციები, output schema, confidence-ის წაკითხვა, development და validation ნაკრებები და შეფასების კოდი გადაიხედება, ეკრანზე ნაჩვენები **პროტოკოლის ვერსია** ჩაწერეთ `.env.local`-ში `BENCHMARK_FROZEN_PROTOCOL_VERSION` მნიშვნელობად. ეს არის ხელით დადასტურებული freeze; აპი ვერ ამოწმებს, ნამდვილად ჩატარდა თუ არა ადამიანური განხილვა. ნებისმიერი შესაბამისი ფაილის ან მოდელის პარამეტრის ცვლილება ვერსიას შეცვლის და validation-ის გაშვებას ისევ ჩაკეტავს.
 5. Validation-ის **გაშვება** შესაძლებელია მხოლოდ გაყინული პროტოკოლითა და იმავე ვერსიაზე სრული, უშეცდომო development გაშვებით. Gold ხელმისაწვდომია review-სთვის. Jev-ის confidence ზღვარი development-იდან გადმოდის. შედეგები შეადარეთ GPT-6 Sol baseline-ს; probability მეტრიკები მხოლოდ Jev-ზე იქნება.
 
-`datasets/claim-semantics/` შეიცავს **139 განსხვავებულ ქართულ ტექსტს / 404 contract case-ს**: 285 development, 119 validation. მათ შორის 48 case პირდაპირ [Cases.md](docs/Cases.md)-დან მოდის, ხოლო 52 დამატებითი შეფასება adversarial მატრიცის მიხედვითაა შექმნილი. საწყის ნაკრებთან ტექსტის/contract-ის ოთხი დუბლიკატი ჩანაცვლებულია დოკუმენტირებული gold-ით. ადრე ontology review-სთვის გადმოტანილი seed ტექსტი development-ში რჩება. [ექვსივე ონტოლოგიური საკითხი გადაწყდა](docs/ontology-review.md); დაემატა ერთი development `quantifiedClaim = NO` ქეისი და ახლა არის 404 `draft`, 0 `ontology-review`, 0 `reviewed`. Validation-ის 119 ქეისი ამ ცვლილებებით არ შეცვლილა. Review-ის ღილაკი თითო case-ს ცალ-ცალკე ამოწმებს; ჩანაწერი ინახება `reviews.json`-ში და ცვლის dataset/protocol hash-ს.
+`datasets/claim-semantics/` შეიცავს **139 განსხვავებულ ქართულ ტექსტს / 404 contract case-ს**: 285 development, 119 validation. მათ შორის 48 case პირდაპირ [Cases.md](docs/Cases.md)-დან მოდის, ხოლო 52 დამატებითი შეფასება adversarial მატრიცის მიხედვითაა შექმნილი. საწყის ნაკრებთან ტექსტის/contract-ის ოთხი დუბლიკატი ჩანაცვლებულია დოკუმენტირებული gold-ით. ადრე ontology review-სთვის გადმოტანილი seed ტექსტი development-ში რჩება. [ექვსივე ონტოლოგიური საკითხი გადაწყდა](docs/ontology-review.md); დაემატა ერთი development `quantifiedClaim = NO` ქეისი და ახლა არის 404 `draft`, 0 `ontology-review`, 0 `reviewed`. Validation-ის 119 ქეისი ამ ცვლილებებით არ შეცვლილა. Blind Gold Review-ის ჩანაწერები ცალკე `reviews.json`-ში ინახება და ცვლის dataset/protocol hash-ს.
 
 Jev-ის Noul ალბათობა აპლიკაციაში გარდაიქმნება ასე: `p >= 0.60 → YES`, `p <= 0.40 → NO`, `0.40 < p < 0.60 → application abstention`. ეს კონფიგურირებული decision dead-zone-ია; Jev native `UNCERTAIN`-ს არ აბრუნებს. Baseline native `UNCERTAIN`-ს აბრუნებს. სტაბილურობის ცალკე სექცია 3–5 იდენტური კონფიგურაციის განმეორებით გაშვებას ადარებს, მოდელის ხელახლა გამოძახების გარეშე.
 
@@ -48,6 +48,8 @@ Jev-ის Noul ალბათობა აპლიკაციაში გ�
 
 ```powershell
 python scripts/check_dataset.py
+python scripts/check_review_state.py  # npm run build-ის შემდეგ
+npm run check:stability
 npm run lint
 npm run build
 ```

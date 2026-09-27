@@ -10,7 +10,7 @@ The current 404 case records cover 285 development and 119 validation evaluation
 
 ## Human gold review
 
-Generated rows start as `draft`; unresolved ontology rows are `ontology-review`. The workbench shows every development and validation item, with split, contract, difficulty, ambiguity, source, gold status, outcome and text filters. A reviewer reads the text, contract and rationale, then explicitly clicks **Reviewed**. This writes a timestamp and source-item digest to `datasets/claim-semantics/reviews.json`; it does not rewrite generated gold. If the underlying item changes, its review no longer applies. The action can be reversed to `draft`. `ontology-review` cannot be marked reviewed until its rule is documented and its source gold is resolved. The review ledger contributes to both dataset and protocol hashes, so any review change invalidates an existing freeze. The workbench shows reviewed/total, draft remaining and ontology-review remaining.
+Use the dedicated [Blind Human Gold Review](gold-review.md) page before inspecting model results. It groups every contract evaluation by Georgian source text and never loads model reports. Review decisions are stored separately from generated gold. Difficult cases require a second pass; unresolved corrections and ontology issues are tracked explicitly. The review ledger contributes to both dataset and protocol hashes, so any review change invalidates an existing freeze.
 
 ## Model decisions and stability
 

@@ -2,14 +2,33 @@ import { readFile, readdir, writeFile, mkdir, rename } from "node:fs/promises";
 import { createHash, randomUUID } from "node:crypto";
 import path from "node:path";
 import { CONTRACT_IDS } from "./contracts";
+import { requiresSecondPass } from "./review-rules";
 import type { BenchmarkItem, BenchmarkRun, Split } from "./types";
 
 const root = process.cwd();
 const datasetDir = path.join(root, "datasets", "claim-semantics");
 const runsDir = path.join(root, "reports", "runs");
 const reviewPath = path.join(datasetDir, "reviews.json");
-type Review = { digest: string; reviewedAt: string };
-type ReviewLedger = Record<string, Review>;
+export type ReviewDecision = {
+  status: "reviewed" | "needs-correction" | "ontology-review";
+  proposedGold?: boolean;
+  reason?: string;
+  createdAt: string;
+};
+export type ReviewRecord = { digest: string; currentGold: boolean | null; first?: ReviewDecision; second?: ReviewDecision; agreement?: "agree" | "disagree" };
+type ReviewLedger = Record<string, ReviewRecord>;
+export type ReviewAction = "draft" | ReviewDecision["status"];
+
+export function reviewStatus(item: BenchmarkItem, record?: ReviewRecord): BenchmarkItem["goldStatus"] {
+  if (item.goldStatus === "ontology-review") return "ontology-review";
+  const first = record?.first;
+  const second = record?.second;
+  if (!first) return "draft";
+  if (first.status === "ontology-review" || second?.status === "ontology-review") return "ontology-review";
+  if (first.status === "needs-correction" || second?.status === "needs-correction") return "needs-correction";
+  if (requiresSecondPass(item) && !second) return "draft";
+  return "reviewed";
+}
 
 function itemDigest(item: BenchmarkItem): string {
   return createHash("sha256").update(JSON.stringify(item)).digest("hex");
@@ -40,7 +59,10 @@ export async function protocolVersion(): Promise<string> {
     "src/lib/benchmark/stability.ts",
     "src/lib/benchmark/types.ts",
     "src/lib/benchmark/data.ts",
+    "src/lib/benchmark/review-rules.ts",
+    "src/lib/benchmark/gold-review.ts",
     "src/app/api/workbench/route.ts",
+    "src/app/api/gold-review/route.ts",
   ];
   const contents = await Promise.all([
     readFile(path.join(root, "datasets", "claim-semantics", "development.jsonl")),
@@ -52,7 +74,10 @@ export async function protocolVersion(): Promise<string> {
     readFile(path.join(root, "src", "lib", "benchmark", "stability.ts")),
     readFile(path.join(root, "src", "lib", "benchmark", "types.ts")),
     readFile(path.join(root, "src", "lib", "benchmark", "data.ts")),
+    readFile(path.join(root, "src", "lib", "benchmark", "review-rules.ts")),
+    readFile(path.join(root, "src", "lib", "benchmark", "gold-review.ts")),
     readFile(path.join(root, "src", "app", "api", "workbench", "route.ts")),
+    readFile(path.join(root, "src", "app", "api", "gold-review", "route.ts")),
   ]);
   const digest = createHash("sha256");
   files.forEach((file, index) => digest.update(file).update(contents[index]));
@@ -89,19 +114,58 @@ export async function loadItems(split: Split): Promise<BenchmarkItem[]> {
   const [items, reviews] = await Promise.all([rawItems(split), readReviews()]);
   return items.map((item) => {
     const review = reviews[item.id];
-    return review && review.digest === itemDigest(item) && item.goldStatus === "draft"
-      ? { ...item, goldStatus: "reviewed" as const }
-      : item;
+    return { ...item, goldStatus: reviewStatus(item, review?.digest === itemDigest(item) ? review : undefined) };
   });
 }
 
+export async function loadReviewRecords(): Promise<ReviewLedger> {
+  const [development, validation, reviews] = await Promise.all([rawItems("development"), rawItems("validation"), readReviews()]);
+  const items = new Map([...development, ...validation].map((item) => [item.id, item]));
+  return Object.fromEntries(Object.entries(reviews).filter(([id, review]) => {
+    const item = items.get(id);
+    return item && review.digest === itemDigest(item);
+  }));
+}
+
 let reviewQueue = Promise.resolve();
-export function setReviewStatus(id: string, status: "draft" | "reviewed"): Promise<void> {
+export function setGoldReview(id: string, pass: "first" | "second", status: ReviewAction, proposedGold?: boolean, reason?: string): Promise<void> {
   const work = reviewQueue.then(async () => {
     const [development, validation, reviews] = await Promise.all([rawItems("development"), rawItems("validation"), readReviews()]);
     const item = [...development, ...validation].find((entry) => entry.id === id);
-    if (!item || item.goldStatus === "ontology-review") throw new Error("Case is unavailable for review; resolve ontology in the source first");
-    if (status === "reviewed") reviews[id] = { digest: itemDigest(item), reviewedAt: new Date().toISOString() };
+    if (!item) throw new Error("Unknown case");
+    if (status === "reviewed" && item.goldStatus !== "draft") throw new Error("Resolve source ontology before agreeing with gold");
+    const previous = reviews[id]?.digest === itemDigest(item) ? reviews[id] : undefined;
+    const unresolved = (decision?: ReviewDecision) => decision?.status === "needs-correction" || decision?.status === "ontology-review";
+    if (unresolved(previous?.[pass]) && status !== previous?.[pass]?.status) {
+      throw new Error("Resolve the correction or ontology issue in the source and rules before changing this decision");
+    }
+    if (pass === "first" && unresolved(previous?.second)) {
+      throw new Error("Resolve the second-pass issue in the source and rules before changing the first decision");
+    }
+    if (pass === "second" && (!requiresSecondPass(item) || !previous?.first)) throw new Error("Second pass requires a difficult case and a first decision");
+    if (status === "needs-correction" && (item.expected === null || typeof proposedGold !== "boolean" || proposedGold === item.expected)) {
+      throw new Error("Choose a different proposed YES/NO gold for the correction");
+    }
+    const writtenReason = reason?.trim();
+    if ((status === "needs-correction" || status === "ontology-review") && (!writtenReason || writtenReason.length > 2000)) {
+      throw new Error("A written reason of at most 2000 characters is required");
+    }
+    const next: ReviewRecord = previous ? { ...previous } : { digest: itemDigest(item), currentGold: item.expected };
+    if (status === "draft") {
+      if (pass === "first") { delete next.first; delete next.second; }
+      else delete next.second;
+    } else {
+      next[pass] = {
+        status, createdAt: new Date().toISOString(),
+        ...(status === "needs-correction" ? { proposedGold } : {}),
+        ...(writtenReason ? { reason: writtenReason } : {}),
+      };
+      if (pass === "first") delete next.second;
+    }
+    if (next.first && next.second) {
+      next.agreement = next.first.status === next.second.status && next.first.proposedGold === next.second.proposedGold ? "agree" : "disagree";
+    } else delete next.agreement;
+    if (next.first) reviews[id] = next;
     else delete reviews[id];
     const temporary = path.join(datasetDir, `reviews-${randomUUID()}.tmp`);
     await writeFile(temporary, JSON.stringify(reviews, null, 2) + "\n", "utf8");

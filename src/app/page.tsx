@@ -16,6 +16,7 @@ export default async function Home() {
       validation,
       reviewedCount: allItems.filter((item) => item.goldStatus === "reviewed").length,
       draftCount: allItems.filter((item) => item.goldStatus === "draft").length,
+      needsCorrectionCount: allItems.filter((item) => item.goldStatus === "needs-correction").length,
       ontologyReviewCount: allItems.filter((item) => item.goldStatus === "ontology-review").length,
       total: allItems.length,
     },
