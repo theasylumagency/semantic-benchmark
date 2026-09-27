@@ -1,6 +1,6 @@
 import type { ContractId } from "./contracts";
 
-export type Split = "development" | "holdout";
+export type Split = "development" | "validation";
 export type ProviderId = "jev" | "baseline";
 
 export type BenchmarkItem = {
@@ -101,6 +101,7 @@ export type BenchmarkRun = {
   requestedModel?: string;
   reasoningEffort?: string;
   split: Split;
+  sample?: string;
   threshold: number;
   groupCount: number;
   datasetVersion: string;

@@ -5,7 +5,7 @@
 
 ```text
 Development only
-Do not move to Holdout
+Do not move to Validation
 48 contract evaluations
 ```
 

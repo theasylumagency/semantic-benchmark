@@ -2,6 +2,8 @@
 
 დამოუკიდებელი სამუშაო გარემო ქართული semantic contract-ების შესაფასებლად. პირველი მოდულია **Claim Semantics**. Jev და ძლიერი baseline ერთსა და იმავე ტექსტებსა და contract-ებს ამუშავებენ. ეს რეპოზიტორია UNDA production სისტემას არ ცვლის.
 
+მიმდინარე ეტაპები: **Development → ონტოლოგიის დაზუსტება და ზღვრის შერჩევა; Validation → გაყინული პროტოკოლის დადასტურება და განზოგადების შემოწმება; Sealed Holdout → მომავალში ერთჯერადი საბოლოო შეფასება.** Development-ისა და validation-ის gold ამ რეპოზიტორიაში ჩანს, ამიტომ არც ერთი blind არ არის. დეტალები: [მეთოდოლოგია](docs/methodology.md).
+
 ## გაშვება
 
 ```powershell
@@ -22,14 +24,16 @@ Baseline არის **GPT-6 Sol, `xhigh` reasoning დონით** და �
 1. გაუშვით 10 ტექსტიანი სწრაფი development ტესტი, შემდეგ **Batch 01 · 48 case** და **Adversarial · 100 case**. ყველა adversarial case მხოლოდ development-შია.
 2. გადაამოწმეთ [canonical `factualAssertion` განმარტება](docs/factualAssertion.md), [Batch 01 gold-ები](docs/Cases.md) და [ონტოლოგიის ცვლილებები](docs/ontology-review.md). Model disagreement-ის გამო ნიშნული პირდაპირ არ შეცვალოთ: ჯერ განმარტება და მიზეზი წერილობით გადაამოწმეთ.
 3. საჭირო შესწორებების შემდეგ ხელახლა შექმენით მონაცემები: `python scripts/generate_dataset.py`. Development-ის სრული ნაკრებით შეარჩიეთ confidence ზღვარი.
-4. როცა contract-ები, gold, provider-ის ინსტრუქციები, output schema, confidence-ის წაკითხვა, development ნაკრები და შეფასების კოდი საბოლოოდ გადაიხედება, ეკრანზე ნაჩვენები **პროტოკოლის ვერსია** ჩაწერეთ `.env.local`-ში `BENCHMARK_FROZEN_PROTOCOL_VERSION` მნიშვნელობად. ეს არის ხელით დადასტურებული freeze; აპი ვერ ამოწმებს, ნამდვილად ჩატარდა თუ არა ადამიანური განხილვა. ნებისმიერი შესაბამისი ფაილის ან მოდელის პარამეტრის ცვლილება ვერსიას შეცვლის და holdout-ს ისევ ჩაკეტავს.
-5. Blind holdout გაიხსნება მხოლოდ გაყინული პროტოკოლითა და იმავე ვერსიაზე სრული, უშეცდომო development გაშვებით. Jev-ის ზღვარი ამ გაშვებიდან გადმოდის. იგივე ნაკრები გაუშვით GPT-6 Sol baseline-ზეც და შეადარეთ precision, recall, F1, latency და ფასი; probability მეტრიკები მხოლოდ Jev-ზე იქნება.
+4. როცა contract-ები, gold, review ჩანაწერები, provider-ის ინსტრუქციები, output schema, confidence-ის წაკითხვა, development და validation ნაკრებები და შეფასების კოდი გადაიხედება, ეკრანზე ნაჩვენები **პროტოკოლის ვერსია** ჩაწერეთ `.env.local`-ში `BENCHMARK_FROZEN_PROTOCOL_VERSION` მნიშვნელობად. ეს არის ხელით დადასტურებული freeze; აპი ვერ ამოწმებს, ნამდვილად ჩატარდა თუ არა ადამიანური განხილვა. ნებისმიერი შესაბამისი ფაილის ან მოდელის პარამეტრის ცვლილება ვერსიას შეცვლის და validation-ის გაშვებას ისევ ჩაკეტავს.
+5. Validation-ის **გაშვება** შესაძლებელია მხოლოდ გაყინული პროტოკოლითა და იმავე ვერსიაზე სრული, უშეცდომო development გაშვებით. Gold ხელმისაწვდომია review-სთვის. Jev-ის confidence ზღვარი development-იდან გადმოდის. შედეგები შეადარეთ GPT-6 Sol baseline-ს; probability მეტრიკები მხოლოდ Jev-ზე იქნება.
 
-`datasets/claim-semantics/` შეიცავს **139 განსხვავებულ ქართულ ტექსტს / 403 contract case-ს**: 284 development, 119 holdout. მათ შორის 48 case პირდაპირ [Cases.md](docs/Cases.md)-დან მოდის, ხოლო 52 დამატებითი შეფასება adversarial მატრიცის მიხედვითაა შექმნილი. საწყის ნაკრებთან ტექსტის/contract-ის ოთხი დუბლიკატი ჩანაცვლებულია დოკუმენტირებული gold-ით. ერთი ბუნდოვანი seed ტექსტი holdout-იდან development-ში გადავიდა ontology review-სთვის. ყველა gold ჯერ სამუშაო ანოტაციაა: 398 `draft`, 5 `ontology-review`. `UNCERTAIN` gold ქულაში არ შედის, მაგრამ მოდელის პასუხი და დრო ინახება. ადამიანური განხილვა საბოლოო დასკვნისთვის აუცილებელია.
+`datasets/claim-semantics/` შეიცავს **139 განსხვავებულ ქართულ ტექსტს / 403 contract case-ს**: 284 development, 119 validation. მათ შორის 48 case პირდაპირ [Cases.md](docs/Cases.md)-დან მოდის, ხოლო 52 დამატებითი შეფასება adversarial მატრიცის მიხედვითაა შექმნილი. საწყის ნაკრებთან ტექსტის/contract-ის ოთხი დუბლიკატი ჩანაცვლებულია დოკუმენტირებული gold-ით. ერთი ბუნდოვანი seed ტექსტი validation-იდან development-ში გადავიდა ontology review-სთვის. ახლა არის 397 `draft`, 6 `ontology-review`, 0 `reviewed`. Validation-ის 119 ტექსტი/contract/gold უცვლელია; შეიცვალა მხოლოდ `split` მნიშვნელობა. `UNCERTAIN` gold ქულაში არ შედის. Review-ის ღილაკი თითო case-ს ცალ-ცალკე ამოწმებს; ჩანაწერი ინახება `reviews.json`-ში და ცვლის dataset/protocol hash-ს.
+
+Jev-ის Noul ალბათობა აპლიკაციაში გარდაიქმნება ასე: `p >= 0.60 → YES`, `p <= 0.40 → NO`, `0.40 < p < 0.60 → application abstention`. ეს კონფიგურირებული decision dead-zone-ია; Jev native `UNCERTAIN`-ს არ აბრუნებს. Baseline native `UNCERTAIN`-ს აბრუნებს. სტაბილურობის ცალკე სექცია 3–5 იდენტური კონფიგურაციის განმეორებით გაშვებას ადარებს, მოდელის ხელახლა გამოძახების გარეშე.
 
 ## მეტრიკების წაკითხვა
 
-- `პასუხის სიზუსტე`: სწორი პასუხების წილი მხოლოდ იმ case-ებზე, სადაც მოდელმა YES ან NO თქვა. `UNCERTAIN` ამ მნიშვნელობას არ ამცირებს.
+- `პასუხის სიზუსტე`: სწორი პასუხების წილი მხოლოდ იმ case-ებზე, სადაც მოდელმა YES ან NO თქვა. Jev-ის application abstention და baseline-ის native `UNCERTAIN` ამ მნიშვნელობას არ ამცირებს.
 - `პასუხის დაფარვა` და `სრული სიზუსტე`: შესაბამისად, პასუხგაცემული case-ების წილი და სწორი პასუხების წილი ყველა შეფასებადი gold-ის მიმართ. მოდელების სამართლიანად შესადარებლად ეს მაჩვენებლები ერთად წაიკითხეთ.
 - `Brier score`: YES ალბათობის კვადრატული შეცდომა gold boolean-თან; ნაკლები უკეთესია.
 - `Calibration error`: confidence bucket-ში საშუალო confidence-ისა და ფაქტობრივი სიზუსტის შეწონილი სხვაობა.

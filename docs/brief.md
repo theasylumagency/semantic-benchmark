@@ -427,7 +427,7 @@ type BenchmarkItem = {
 
   split:
     | "development"
-    | "holdout"
+    | "validation"
 }
 ```
 
@@ -450,15 +450,15 @@ type BenchmarkItem = {
 
 ---
 
-# 8. Development და Holdout
+# 8. Development, Validation და მომავალი Sealed Holdout
 
 Dataset თავიდანვე უნდა გაიყოს.
 
 მაგალითად:
 
 ```text
-180 development
-120 blind holdout
+284 development
+119 validation
 ```
 
 Development subset-ზე შეგვიძლია:
@@ -468,9 +468,9 @@ Development subset-ზე შეგვიძლია:
 * thresholds-ის შერჩევა;
 * Jev contract-ის კორექტირება.
 
-Holdout subset-ზე — არა.
+Validation subset-ზე პროტოკოლის გაყინვის შემდეგ ვამოწმებთ განზოგადებას; მისი gold რეპოზიტორიაშია და blind არ არის. თუ შედეგის შემდეგ წესი შეიცვალა, იქმნება ახალი protocol version და development ხელახლა მოწმდება.
 
-Holdout მხოლოდ საბოლოო შეფასებისთვის გამოიყენება.
+Sealed Holdout მხოლოდ მომავალში, ontology review-ის, human review-ისა და განმეორებითი stability შეფასების შემდეგ შეიქმნება. Gold საჯარო რეპოზიტორიაში შეფასებამდე არ ჩაიდება; შეფასება ერთჯერადია.
 
 წინააღმდეგ შემთხვევაში მარტივად მოვირგებთ benchmark-ს მოდელზე და შედეგი რეალური აღარ იქნება.
 
@@ -791,7 +791,7 @@ Calibration და threshold analysis.
 
 ## Phase 7
 
-Blind holdout.
+Frozen-protocol validation (not blind).
 
 ## Phase 8
 

@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { datasetVersion, loadItems, listRuns, protocolFrozen, protocolVersion, saveRun } from "@/lib/benchmark/data";
+import { datasetVersion, loadItems, listRuns, protocolFrozen, protocolVersion, saveRun, setReviewStatus } from "@/lib/benchmark/data";
 import { evaluate } from "@/lib/benchmark/metrics";
 import { baselineConfiguration, providerAvailable, runGroup } from "@/lib/benchmark/providers";
 import type { BenchmarkItem, BenchmarkRun, ProviderId, Split } from "@/lib/benchmark/types";
@@ -13,26 +13,48 @@ function authorized(request: Request): boolean {
 }
 
 export async function GET() {
-  const [development, holdout, runs, currentVersion, currentProtocol] = await Promise.all([
-    loadItems("development"), loadItems("holdout"), listRuns(), datasetVersion(), protocolVersion(),
+  const [development, validation, runs, currentVersion, currentProtocol] = await Promise.all([
+    loadItems("development"), loadItems("validation"), listRuns(), datasetVersion(), protocolVersion(),
   ]);
+  const allItems = [...development, ...validation];
   return Response.json({
     dataset: {
-      development,
-      holdout: runs.some((run) => run.split === "holdout" && run.protocolVersion === currentProtocol) ? holdout : [],
-      holdoutCount: holdout.length,
-      holdoutGroups: new Set(holdout.map((item) => item.groupId)).size,
+      development, validation,
       version: currentVersion,
-      reviewedCount: [...development, ...holdout].filter((item) => item.goldStatus === "reviewed").length,
-      total: development.length + holdout.length,
+      reviewedCount: allItems.filter((item) => item.goldStatus === "reviewed").length,
+      draftCount: allItems.filter((item) => item.goldStatus === "draft").length,
+      ontologyReviewCount: allItems.filter((item) => item.goldStatus === "ontology-review").length,
+      total: allItems.length,
     },
     providers: { jev: providerAvailable("jev"), baseline: providerAvailable("baseline") },
     baselineConfiguration: baselineConfiguration(),
     protocolVersion: currentProtocol,
-    holdoutFrozen: protocolFrozen(currentProtocol),
+    validationFrozen: protocolFrozen(currentProtocol),
     runs,
     writeProtected: Boolean(process.env.BENCHMARK_ACCESS_TOKEN) || process.env.NODE_ENV === "production",
   });
+}
+
+export async function PATCH(request: Request) {
+  if (!authorized(request)) return Response.json({ error: "Access token required for review changes" }, { status: 401 });
+  let body: { itemId?: unknown; status?: unknown };
+  try { body = await request.json(); }
+  catch { return Response.json({ error: "Invalid JSON" }, { status: 400 }); }
+  if (typeof body.itemId !== "string" || !["draft", "reviewed"].includes(body.status as string)) {
+    return Response.json({ error: "Invalid review change" }, { status: 400 });
+  }
+  try { await setReviewStatus(body.itemId, body.status as "draft" | "reviewed"); }
+  catch (error) { return Response.json({ error: error instanceof Error ? error.message : "Review change failed" }, { status: 400 }); }
+  const [development, validation, version, currentProtocol] = await Promise.all([
+    loadItems("development"), loadItems("validation"), datasetVersion(), protocolVersion(),
+  ]);
+  const allItems = [...development, ...validation];
+  return Response.json({ dataset: {
+    development, validation, version, total: allItems.length,
+    reviewedCount: allItems.filter((item) => item.goldStatus === "reviewed").length,
+    draftCount: allItems.filter((item) => item.goldStatus === "draft").length,
+    ontologyReviewCount: allItems.filter((item) => item.goldStatus === "ontology-review").length,
+  }, protocolVersion: currentProtocol, validationFrozen: protocolFrozen(currentProtocol) });
 }
 
 type RunRequest = { provider?: unknown; split?: unknown; threshold?: unknown; sampleGroups?: unknown; calibrationRunId?: unknown };
@@ -44,7 +66,7 @@ export async function POST(request: Request) {
   catch { return Response.json({ error: "Invalid JSON" }, { status: 400 }); }
   const provider = body.provider as ProviderId;
   const split = body.split as Split;
-  if ((provider !== "jev" && provider !== "baseline") || (split !== "development" && split !== "holdout")) {
+  if ((provider !== "jev" && provider !== "baseline") || (split !== "development" && split !== "validation")) {
     return Response.json({ error: "Invalid provider or split" }, { status: 400 });
   }
   if (split === "development" && body.sampleGroups !== 10 && body.sampleGroups !== "all" &&
@@ -55,9 +77,9 @@ export async function POST(request: Request) {
   const currentVersion = await datasetVersion();
   const currentProtocol = await protocolVersion();
   let threshold: number;
-  if (split === "holdout") {
+  if (split === "validation") {
     if (!protocolFrozen(currentProtocol)) {
-      return Response.json({ error: "Freeze the current benchmark protocol before opening holdout" }, { status: 409 });
+      return Response.json({ error: "Freeze the current benchmark protocol before validation runs" }, { status: 409 });
     }
     const runs = await listRuns();
     const calibration = runs.find((run) => run.id === body.calibrationRunId);
@@ -67,7 +89,7 @@ export async function POST(request: Request) {
       calibration.groupCount !== devGroups || calibration.metrics.failed > 0 ||
       (provider === "baseline" && (calibration.requestedModel !== baselineConfiguration().model ||
         calibration.reasoningEffort !== baselineConfiguration().reasoningEffort))) {
-      return Response.json({ error: "Holdout requires a full development run for this provider and dataset version" }, { status: 400 });
+      return Response.json({ error: "Validation requires a full development run for this provider and dataset version" }, { status: 400 });
     }
     threshold = calibration.threshold;
   } else {
@@ -85,7 +107,7 @@ export async function POST(request: Request) {
       : splitItems;
   const groups = new Map<string, BenchmarkItem[]>();
   for (const item of allItems) groups.set(item.groupId, [...(groups.get(item.groupId) || []), item]);
-  const groupLimit = split === "holdout" ? groups.size : body.sampleGroups === 10 ? 10 : groups.size;
+  const groupLimit = split === "validation" ? groups.size : body.sampleGroups === 10 ? 10 : groups.size;
   const selectedGroups = [...groups.values()].slice(0, groupLimit);
   const selectedItems = selectedGroups.flat();
   // Bounded concurrency avoids provider rate-limit spikes while keeping a full run practical.
@@ -103,6 +125,7 @@ export async function POST(request: Request) {
     requestedModel: results[0]?.requestedModel,
     reasoningEffort: results[0]?.reasoningEffort,
     split,
+    sample: split === "validation" ? "all" : body.sampleGroups === 10 ? "quick-10" : String(body.sampleGroups),
     threshold,
     groupCount: selectedGroups.length,
     datasetVersion: currentVersion,
@@ -112,5 +135,5 @@ export async function POST(request: Request) {
     metrics: evaluate(selectedItems, predictions, requests, threshold),
   };
   await saveRun(run);
-  return Response.json({ run, revealedItems: split === "holdout" ? selectedItems : [] });
+  return Response.json({ run });
 }

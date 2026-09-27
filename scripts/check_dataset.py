@@ -1,13 +1,14 @@
 """Check dataset integrity without contacting any model provider."""
 
 import json
+import hashlib
 from collections import Counter, defaultdict
 from pathlib import Path
 
 from adversarial_cases import documented_cases
 
 ROOT = Path(__file__).resolve().parents[1] / "datasets" / "claim-semantics"
-files = {split: ROOT / f"{split}.jsonl" for split in ("development", "holdout")}
+files = {split: ROOT / f"{split}.jsonl" for split in ("development", "validation")}
 items = []
 groups = defaultdict(set)
 text_splits = defaultdict(set)
@@ -38,7 +39,7 @@ assert set(documented) == set(actual_documented)
 assert all({key: value for key, value in actual_documented[case_id].items() if key != "groupId"} ==
            {key: value for key, value in case.items() if key != "groupId"}
            for case_id, case in documented.items())
-assert sum(item["expected"] is None for item in items) == 5
+assert sum(item["expected"] is None for item in items) == 6
 assert all(item["split"] == "development" for item in items if item["expected"] is None)
 counts = Counter(item["contract"] for item in items)
 assert len(counts) == 10 and min(counts.values()) >= 15
@@ -58,6 +59,19 @@ assert lookup["ka-text-054", "clinicalOutcomeClaim"] is None
 assert lookup["ka-exp-text-002", "quantifiedClaim"] is None
 assert lookup["ka-exp-text-005", "clinicalOutcomeClaim"] is None
 assert lookup["ka-exp-text-005", "guaranteeClaim"] is None
+assert lookup["ka-exp-text-010", "priceClaim"] is None
 assert lookup["ka-adv-text-003", "discountClaim"] is False
 assert lookup["ka-adv-text-003", "factualAssertion"] is True
-print(f"Dataset OK: {len(items)} contract cases, {len(groups)} text groups, {len(counts)} contracts")
+reviews = json.loads((ROOT / "reviews.json").read_text(encoding="utf-8"))
+assert isinstance(reviews, dict)
+by_id = {item["id"]: item for item in items}
+assert all(case_id in by_id and by_id[case_id]["goldStatus"] == "draft" and
+           isinstance(entry, dict) and isinstance(entry.get("reviewedAt"), str) and
+           entry.get("digest") == hashlib.sha256(json.dumps(by_id[case_id], ensure_ascii=False,
+                                                   separators=(",", ":")).encode("utf-8")).hexdigest()
+           for case_id, entry in reviews.items())
+print(f"Dataset OK: {len(items)} contract cases, {len(groups)} text groups, {len(counts)} contracts; "
+      f"development={sum(item['split'] == 'development' for item in items)}, "
+      f"validation={sum(item['split'] == 'validation' for item in items)}, "
+      f"ontology-review={sum(item['goldStatus'] == 'ontology-review' for item in items)}, "
+      f"reviewed={len(reviews)}, draft={sum(item['goldStatus'] == 'draft' for item in items) - len(reviews)}")

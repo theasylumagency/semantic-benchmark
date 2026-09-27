@@ -5,23 +5,24 @@ import Workbench from "./workbench";
 
 export default async function Home() {
   await connection();
-  const [development, holdout, runs, version, currentProtocol] = await Promise.all([
-    loadItems("development"), loadItems("holdout"), listRuns(), datasetVersion(), protocolVersion(),
+  const [development, validation, runs, version, currentProtocol] = await Promise.all([
+    loadItems("development"), loadItems("validation"), listRuns(), datasetVersion(), protocolVersion(),
   ]);
+  const allItems = [...development, ...validation];
   return <Workbench initial={{
     dataset: {
       development,
       version,
-      holdout: runs.some((run) => run.split === "holdout" && run.protocolVersion === currentProtocol) ? holdout : [],
-      holdoutCount: holdout.length,
-      holdoutGroups: new Set(holdout.map((item) => item.groupId)).size,
-      reviewedCount: [...development, ...holdout].filter((item) => item.goldStatus === "reviewed").length,
-      total: development.length + holdout.length,
+      validation,
+      reviewedCount: allItems.filter((item) => item.goldStatus === "reviewed").length,
+      draftCount: allItems.filter((item) => item.goldStatus === "draft").length,
+      ontologyReviewCount: allItems.filter((item) => item.goldStatus === "ontology-review").length,
+      total: allItems.length,
     },
     providers: { jev: providerAvailable("jev"), baseline: providerAvailable("baseline") },
     baselineConfiguration: baselineConfiguration(),
     protocolVersion: currentProtocol,
-    holdoutFrozen: protocolFrozen(currentProtocol),
+    validationFrozen: protocolFrozen(currentProtocol),
     runs,
     writeProtected: Boolean(process.env.BENCHMARK_ACCESS_TOKEN) || process.env.NODE_ENV === "production",
   }} />;

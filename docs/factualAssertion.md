@@ -588,7 +588,7 @@ error capture below threshold
 
 # 9. Freeze criterion
 
-Holdout-ის გახსნამდე უნდა გაიყინოს:
+Validation-ის გაშვებამდე უნდა გაიყინოს:
 
 ```text
 contract definitions
@@ -597,9 +597,11 @@ provider instructions
 output schema
 confidence interpretation
 development dataset
+validation dataset
+human review ledger
 evaluation code
 ```
 
-ამის შემდეგ development-ზე აღარაფერი იცვლება holdout-ის შედეგის მიხედვით.
+Validation-ის შედეგის შემდეგ თუ წესი იცვლება, საჭიროა ახალი პროტოკოლის ვერსია, development-ის სრული ხელახალი გაშვება და freeze. Validation blind არ არის, რადგან მისი gold ხელმისაწვდომია. ცალკე sealed holdout მომავალში შეიქმნება ერთჯერადი საბოლოო შეფასებისთვის.
 
 ეს არის ზღვარი ექსპერიმენტსა და რეალურ შეფასებას შორის.

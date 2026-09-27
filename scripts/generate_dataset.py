@@ -151,7 +151,7 @@ FACTUAL_REVISIONS = {
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
-    by_split = {"development": [], "holdout": []}
+    by_split = {"development": [], "validation": []}
     for index, case in enumerate(CASES):
         text, positive_raw, tags_raw, difficulty, ambiguity, note, *selection = case
         positives = set(positive_raw.split())
@@ -190,8 +190,8 @@ def main():
                 contract = CONTRACTS[(index * 3 + offset) % len(CONTRACTS)]
                 if contract not in selected:
                     selected.append(contract)
-        # Ambiguous ontology-review rows belong in development, never blind holdout.
-        split = "development" if index + 1 == 54 else "holdout" if index % 5 in (0, 3) else "development"
+        # Ambiguous ontology-review rows belong in development.
+        split = "development" if index + 1 == 54 else "validation" if index % 5 in (0, 3) else "development"
         for contract in CONTRACTS:
             if contract not in selected:
                 continue
