@@ -1,0 +1,1199 @@
+{
+  "id": "run-959e9e43-c709-4b9c-a28c-7496032bc0a3",
+  "createdAt": "2026-09-27T03:25:13.069Z",
+  "provider": "jev",
+  "model": "jev-1.13.0",
+  "split": "development",
+  "threshold": 0.8,
+  "groupCount": 46,
+  "datasetVersion": "438c8053260d",
+  "protocolVersion": "662cac5fb64b0b70",
+  "predictions": [
+    {
+      "itemId": "ka-adv-001-superlativeClaim",
+      "predicted": false,
+      "probabilityYes": 0.09,
+      "confidence": 0.91
+    },
+    {
+      "itemId": "ka-adv-002-guaranteeClaim",
+      "predicted": false,
+      "probabilityYes": 0.06,
+      "confidence": 0.94
+    },
+    {
+      "itemId": "ka-adv-003-discountClaim",
+      "predicted": false,
+      "probabilityYes": 0.12,
+      "confidence": 0.88
+    },
+    {
+      "itemId": "ka-adv-004-factualAssertion",
+      "predicted": true,
+      "probabilityYes": 0.94,
+      "confidence": 0.94
+    },
+    {
+      "itemId": "ka-adv-005-factualAssertion",
+      "predicted": true,
+      "probabilityYes": 0.93,
+      "confidence": 0.93
+    },
+    {
+      "itemId": "ka-adv-006-guaranteeClaim",
+      "predicted": false,
+      "probabilityYes": 0.11,
+      "confidence": 0.89
+    },
+    {
+      "itemId": "ka-adv-007-clinicalOutcomeClaim",
+      "predicted": null,
+      "probabilityYes": 0.52,
+      "confidence": 0.52
+    },
+    {
+      "itemId": "ka-adv-008-superlativeClaim",
+      "predicted": false,
+      "probabilityYes": 0.08,
+      "confidence": 0.92
+    },
+    {
+      "itemId": "ka-adv-009-superlativeClaim",
+      "predicted": false,
+      "probabilityYes": 0.16,
+      "confidence": 0.84
+    },
+    {
+      "itemId": "ka-adv-010-factualAssertion",
+      "predicted": false,
+      "probabilityYes": 0.1,
+      "confidence": 0.9
+    },
+    {
+      "itemId": "ka-adv-011-clinicalOutcomeClaim",
+      "predicted": false,
+      "probabilityYes": 0.14,
+      "confidence": 0.86
+    },
+    {
+      "itemId": "ka-adv-012-guaranteeClaim",
+      "predicted": false,
+      "probabilityYes": 0.17,
+      "confidence": 0.83
+    },
+    {
+      "itemId": "ka-adv-013-factualAssertion",
+      "predicted": false,
+      "probabilityYes": 0.26,
+      "confidence": 0.74
+    },
+    {
+      "itemId": "ka-adv-014-priceClaim",
+      "predicted": null,
+      "probabilityYes": 0.48,
+      "confidence": 0.52
+    },
+    {
+      "itemId": "ka-adv-015-superlativeClaim",
+      "predicted": false,
+      "probabilityYes": 0.27,
+      "confidence": 0.73
+    },
+    {
+      "itemId": "ka-adv-016-guaranteeClaim",
+      "predicted": false,
+      "probabilityYes": 0.35,
+      "confidence": 0.65
+    },
+    {
+      "itemId": "ka-adv-017-factualAssertion",
+      "predicted": false,
+      "probabilityYes": 0.12,
+      "confidence": 0.88
+    },
+    {
+      "itemId": "ka-adv-018-superlativeClaim",
+      "predicted": true,
+      "probabilityYes": 0.96,
+      "confidence": 0.96
+    },
+    {
+      "itemId": "ka-adv-019-factualAssertion",
+      "predicted": true,
+      "probabilityYes": 0.93,
+      "confidence": 0.93
+    },
+    {
+      "itemId": "ka-adv-020-superlativeClaim",
+      "predicted": true,
+      "probabilityYes": 0.85,
+      "confidence": 0.85
+    },
+    {
+      "itemId": "ka-adv-021-factualAssertion",
+      "predicted": true,
+      "probabilityYes": 0.93,
+      "confidence": 0.93
+    },
+    {
+      "itemId": "ka-adv-022-quantifiedClaim",
+      "predicted": true,
+      "probabilityYes": 0.96,
+      "confidence": 0.96
+    },
+    {
+      "itemId": "ka-adv-023-factualAssertion",
+      "predicted": false,
+      "probabilityYes": 0.26,
+      "confidence": 0.74
+    },
+    {
+      "itemId": "ka-adv-024-factualAssertion",
+      "predicted": true,
+      "probabilityYes": 0.94,
+      "confidence": 0.94
+    },
+    {
+      "itemId": "ka-adv-025-quantifiedClaim",
+      "predicted": true,
+      "probabilityYes": 0.91,
+      "confidence": 0.91
+    },
+    {
+      "itemId": "ka-adv-026-factualAssertion",
+      "predicted": false,
+      "probabilityYes": 0.35,
+      "confidence": 0.65
+    },
+    {
+      "itemId": "ka-adv-027-factualAssertion",
+      "predicted": false,
+      "probabilityYes": 0.11,
+      "confidence": 0.89
+    },
+    {
+      "itemId": "ka-adv-028-guaranteeClaim",
+      "predicted": true,
+      "probabilityYes": 0.95,
+      "confidence": 0.95
+    },
+    {
+      "itemId": "ka-adv-029-factualAssertion",
+      "predicted": false,
+      "probabilityYes": 0.09,
+      "confidence": 0.91
+    },
+    {
+      "itemId": "ka-adv-030-clinicalOutcomeClaim",
+      "predicted": true,
+      "probabilityYes": 0.84,
+      "confidence": 0.84
+    },
+    {
+      "itemId": "ka-adv-031-factualAssertion",
+      "predicted": true,
+      "probabilityYes": 0.92,
+      "confidence": 0.92
+    },
+    {
+      "itemId": "ka-adv-032-availabilityClaim",
+      "predicted": true,
+      "probabilityYes": 0.69,
+      "confidence": 0.69
+    },
+    {
+      "itemId": "ka-adv-033-factualAssertion",
+      "predicted": true,
+      "probabilityYes": 0.85,
+      "confidence": 0.85
+    },
+    {
+      "itemId": "ka-adv-034-guaranteeClaim",
+      "predicted": true,
+      "probabilityYes": 0.71,
+      "confidence": 0.71
+    },
+    {
+      "itemId": "ka-adv-035-comparativeClaim",
+      "predicted": true,
+      "probabilityYes": 0.9,
+      "confidence": 0.9
+    },
+    {
+      "itemId": "ka-adv-036-comparativeClaim",
+      "predicted": true,
+      "probabilityYes": 0.95,
+      "confidence": 0.95
+    },
+    {
+      "itemId": "ka-adv-037-quantifiedClaim",
+      "predicted": true,
+      "probabilityYes": 0.95,
+      "confidence": 0.95
+    },
+    {
+      "itemId": "ka-adv-038-factualAssertion",
+      "predicted": true,
+      "probabilityYes": 0.86,
+      "confidence": 0.86
+    },
+    {
+      "itemId": "ka-adv-039-comparativeClaim",
+      "predicted": true,
+      "probabilityYes": 0.75,
+      "confidence": 0.75
+    },
+    {
+      "itemId": "ka-adv-040-comparativeClaim",
+      "predicted": false,
+      "probabilityYes": 0.17,
+      "confidence": 0.83
+    },
+    {
+      "itemId": "ka-adv-041-comparativeClaim",
+      "predicted": true,
+      "probabilityYes": 0.91,
+      "confidence": 0.91
+    },
+    {
+      "itemId": "ka-adv-042-proofRequirement",
+      "predicted": true,
+      "probabilityYes": 0.84,
+      "confidence": 0.84
+    },
+    {
+      "itemId": "ka-adv-043-superlativeClaim",
+      "predicted": false,
+      "probabilityYes": 0.21,
+      "confidence": 0.79
+    },
+    {
+      "itemId": "ka-adv-044-clinicalOutcomeClaim",
+      "predicted": false,
+      "probabilityYes": 0.37,
+      "confidence": 0.63
+    },
+    {
+      "itemId": "ka-adv-045-priceClaim",
+      "predicted": false,
+      "probabilityYes": 0.12,
+      "confidence": 0.88
+    },
+    {
+      "itemId": "ka-adv-046-guaranteeClaim",
+      "predicted": false,
+      "probabilityYes": 0.13,
+      "confidence": 0.87
+    },
+    {
+      "itemId": "ka-adv-047-priceClaim",
+      "predicted": true,
+      "probabilityYes": 0.9,
+      "confidence": 0.9
+    },
+    {
+      "itemId": "ka-adv-048-quantifiedClaim",
+      "predicted": true,
+      "probabilityYes": 0.93,
+      "confidence": 0.93
+    },
+    {
+      "itemId": "ka-exp-001-availabilityClaim",
+      "predicted": true,
+      "probabilityYes": 0.93,
+      "confidence": 0.93
+    },
+    {
+      "itemId": "ka-exp-001-factualAssertion",
+      "predicted": true,
+      "probabilityYes": 0.9,
+      "confidence": 0.9
+    },
+    {
+      "itemId": "ka-exp-001-quantifiedClaim",
+      "predicted": false,
+      "probabilityYes": 0.24,
+      "confidence": 0.76
+    },
+    {
+      "itemId": "ka-exp-001-guaranteeClaim",
+      "predicted": false,
+      "probabilityYes": 0.07,
+      "confidence": 0.9299999999999999
+    },
+    {
+      "itemId": "ka-exp-002-availabilityClaim",
+      "predicted": true,
+      "probabilityYes": 0.93,
+      "confidence": 0.93
+    },
+    {
+      "itemId": "ka-exp-002-factualAssertion",
+      "predicted": true,
+      "probabilityYes": 0.92,
+      "confidence": 0.92
+    },
+    {
+      "itemId": "ka-exp-002-quantifiedClaim",
+      "predicted": false,
+      "probabilityYes": 0.26,
+      "confidence": 0.74
+    },
+    {
+      "itemId": "ka-exp-002-guaranteeClaim",
+      "predicted": false,
+      "probabilityYes": 0.08,
+      "confidence": 0.92
+    },
+    {
+      "itemId": "ka-exp-003-availabilityClaim",
+      "predicted": true,
+      "probabilityYes": 0.85,
+      "confidence": 0.85
+    },
+    {
+      "itemId": "ka-exp-003-factualAssertion",
+      "predicted": true,
+      "probabilityYes": 0.9,
+      "confidence": 0.9
+    },
+    {
+      "itemId": "ka-exp-003-priceClaim",
+      "predicted": false,
+      "probabilityYes": 0.05,
+      "confidence": 0.95
+    },
+    {
+      "itemId": "ka-exp-003-guaranteeClaim",
+      "predicted": false,
+      "probabilityYes": 0.06,
+      "confidence": 0.94
+    },
+    {
+      "itemId": "ka-exp-004-clinicalOutcomeClaim",
+      "predicted": true,
+      "probabilityYes": 0.85,
+      "confidence": 0.85
+    },
+    {
+      "itemId": "ka-exp-004-guaranteeClaim",
+      "predicted": true,
+      "probabilityYes": 0.6,
+      "confidence": 0.6
+    },
+    {
+      "itemId": "ka-exp-004-factualAssertion",
+      "predicted": false,
+      "probabilityYes": 0.12,
+      "confidence": 0.88
+    },
+    {
+      "itemId": "ka-exp-004-proofRequirement",
+      "predicted": true,
+      "probabilityYes": 0.8,
+      "confidence": 0.8
+    },
+    {
+      "itemId": "ka-exp-005-clinicalOutcomeClaim",
+      "predicted": true,
+      "probabilityYes": 0.66,
+      "confidence": 0.66
+    },
+    {
+      "itemId": "ka-exp-005-guaranteeClaim",
+      "predicted": null,
+      "probabilityYes": 0.53,
+      "confidence": 0.53
+    },
+    {
+      "itemId": "ka-exp-005-factualAssertion",
+      "predicted": false,
+      "probabilityYes": 0.13,
+      "confidence": 0.87
+    },
+    {
+      "itemId": "ka-exp-005-proofRequirement",
+      "predicted": true,
+      "probabilityYes": 0.86,
+      "confidence": 0.86
+    },
+    {
+      "itemId": "ka-exp-006-comparativeClaim",
+      "predicted": true,
+      "probabilityYes": 0.93,
+      "confidence": 0.93
+    },
+    {
+      "itemId": "ka-exp-006-quantifiedClaim",
+      "predicted": true,
+      "probabilityYes": 0.96,
+      "confidence": 0.96
+    },
+    {
+      "itemId": "ka-exp-006-factualAssertion",
+      "predicted": true,
+      "probabilityYes": 0.89,
+      "confidence": 0.89
+    },
+    {
+      "itemId": "ka-exp-006-proofRequirement",
+      "predicted": true,
+      "probabilityYes": 0.92,
+      "confidence": 0.92
+    },
+    {
+      "itemId": "ka-exp-007-comparativeClaim",
+      "predicted": true,
+      "probabilityYes": 0.88,
+      "confidence": 0.88
+    },
+    {
+      "itemId": "ka-exp-007-factualAssertion",
+      "predicted": false,
+      "probabilityYes": 0.31,
+      "confidence": 0.69
+    },
+    {
+      "itemId": "ka-exp-007-superlativeClaim",
+      "predicted": null,
+      "probabilityYes": 0.43,
+      "confidence": 0.5700000000000001
+    },
+    {
+      "itemId": "ka-exp-007-proofRequirement",
+      "predicted": true,
+      "probabilityYes": 0.86,
+      "confidence": 0.86
+    },
+    {
+      "itemId": "ka-exp-008-comparativeClaim",
+      "predicted": false,
+      "probabilityYes": 0.37,
+      "confidence": 0.63
+    },
+    {
+      "itemId": "ka-exp-008-factualAssertion",
+      "predicted": true,
+      "probabilityYes": 0.68,
+      "confidence": 0.68
+    },
+    {
+      "itemId": "ka-exp-008-guaranteeClaim",
+      "predicted": false,
+      "probabilityYes": 0.08,
+      "confidence": 0.92
+    },
+    {
+      "itemId": "ka-exp-008-proofRequirement",
+      "predicted": null,
+      "probabilityYes": 0.57,
+      "confidence": 0.57
+    },
+    {
+      "itemId": "ka-exp-009-discountClaim",
+      "predicted": false,
+      "probabilityYes": 0.18,
+      "confidence": 0.8200000000000001
+    },
+    {
+      "itemId": "ka-exp-009-factualAssertion",
+      "predicted": true,
+      "probabilityYes": 0.95,
+      "confidence": 0.95
+    },
+    {
+      "itemId": "ka-exp-009-quantifiedClaim",
+      "predicted": true,
+      "probabilityYes": 0.93,
+      "confidence": 0.93
+    },
+    {
+      "itemId": "ka-exp-009-proofRequirement",
+      "predicted": true,
+      "probabilityYes": 0.71,
+      "confidence": 0.71
+    },
+    {
+      "itemId": "ka-exp-010-priceClaim",
+      "predicted": true,
+      "probabilityYes": 0.84,
+      "confidence": 0.84
+    },
+    {
+      "itemId": "ka-exp-010-factualAssertion",
+      "predicted": true,
+      "probabilityYes": 0.94,
+      "confidence": 0.94
+    },
+    {
+      "itemId": "ka-exp-010-quantifiedClaim",
+      "predicted": true,
+      "probabilityYes": 0.92,
+      "confidence": 0.92
+    },
+    {
+      "itemId": "ka-exp-010-proofRequirement",
+      "predicted": null,
+      "probabilityYes": 0.53,
+      "confidence": 0.53
+    },
+    {
+      "itemId": "ka-exp-011-superlativeClaim",
+      "predicted": true,
+      "probabilityYes": 0.72,
+      "confidence": 0.72
+    },
+    {
+      "itemId": "ka-exp-011-factualAssertion",
+      "predicted": false,
+      "probabilityYes": 0.09,
+      "confidence": 0.91
+    },
+    {
+      "itemId": "ka-exp-011-comparativeClaim",
+      "predicted": false,
+      "probabilityYes": 0.28,
+      "confidence": 0.72
+    },
+    {
+      "itemId": "ka-exp-011-proofRequirement",
+      "predicted": true,
+      "probabilityYes": 0.6,
+      "confidence": 0.6
+    },
+    {
+      "itemId": "ka-exp-012-clinicalOutcomeClaim",
+      "predicted": true,
+      "probabilityYes": 0.6,
+      "confidence": 0.6
+    },
+    {
+      "itemId": "ka-exp-012-factualAssertion",
+      "predicted": true,
+      "probabilityYes": 0.69,
+      "confidence": 0.69
+    },
+    {
+      "itemId": "ka-exp-012-guaranteeClaim",
+      "predicted": false,
+      "probabilityYes": 0.09,
+      "confidence": 0.91
+    },
+    {
+      "itemId": "ka-exp-012-proofRequirement",
+      "predicted": true,
+      "probabilityYes": 0.7,
+      "confidence": 0.7
+    },
+    {
+      "itemId": "ka-exp-013-clinicalOutcomeClaim",
+      "predicted": true,
+      "probabilityYes": 0.89,
+      "confidence": 0.89
+    },
+    {
+      "itemId": "ka-exp-013-guaranteeClaim",
+      "predicted": true,
+      "probabilityYes": 0.76,
+      "confidence": 0.76
+    },
+    {
+      "itemId": "ka-exp-013-factualAssertion",
+      "predicted": false,
+      "probabilityYes": 0.26,
+      "confidence": 0.74
+    },
+    {
+      "itemId": "ka-exp-013-proofRequirement",
+      "predicted": true,
+      "probabilityYes": 0.89,
+      "confidence": 0.89
+    }
+  ],
+  "requests": [
+    {
+      "groupId": "ka-adv-text-001",
+      "latencyMs": 393,
+      "inputTokens": 801,
+      "outputTokens": 25,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-002",
+      "latencyMs": 404,
+      "inputTokens": 746,
+      "outputTokens": 24,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-003",
+      "latencyMs": 403,
+      "inputTokens": 1672,
+      "outputTokens": 43,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-005",
+      "latencyMs": 303,
+      "inputTokens": 1208,
+      "outputTokens": 24,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-006",
+      "latencyMs": 529,
+      "inputTokens": 1366,
+      "outputTokens": 45,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-008",
+      "latencyMs": 531,
+      "inputTokens": 811,
+      "outputTokens": 25,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-009",
+      "latencyMs": 278,
+      "inputTokens": 1727,
+      "outputTokens": 45,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-011",
+      "latencyMs": 296,
+      "inputTokens": 1378,
+      "outputTokens": 45,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-013",
+      "latencyMs": 277,
+      "inputTokens": 1233,
+      "outputTokens": 24,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-014",
+      "latencyMs": 291,
+      "inputTokens": 761,
+      "outputTokens": 23,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-015",
+      "latencyMs": 302,
+      "inputTokens": 821,
+      "outputTokens": 25,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-016",
+      "latencyMs": 330,
+      "inputTokens": 767,
+      "outputTokens": 24,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-text-013",
+      "latencyMs": 301,
+      "inputTokens": 1715,
+      "outputTokens": 45,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-019",
+      "latencyMs": 292,
+      "inputTokens": 1732,
+      "outputTokens": 45,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-021",
+      "latencyMs": 318,
+      "inputTokens": 1703,
+      "outputTokens": 43,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-023",
+      "latencyMs": 318,
+      "inputTokens": 1212,
+      "outputTokens": 24,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-024",
+      "latencyMs": 325,
+      "inputTokens": 1694,
+      "outputTokens": 43,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-026",
+      "latencyMs": 335,
+      "inputTokens": 1227,
+      "outputTokens": 24,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-text-017",
+      "latencyMs": 310,
+      "inputTokens": 1652,
+      "outputTokens": 44,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-029",
+      "latencyMs": 281,
+      "inputTokens": 1822,
+      "outputTokens": 45,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-031",
+      "latencyMs": 333,
+      "inputTokens": 1218,
+      "outputTokens": 24,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-032",
+      "latencyMs": 323,
+      "inputTokens": 1690,
+      "outputTokens": 45,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-034",
+      "latencyMs": 321,
+      "inputTokens": 757,
+      "outputTokens": 24,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-035",
+      "latencyMs": 347,
+      "inputTokens": 758,
+      "outputTokens": 24,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-036",
+      "latencyMs": 364,
+      "inputTokens": 2166,
+      "outputTokens": 63,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-039",
+      "latencyMs": 294,
+      "inputTokens": 777,
+      "outputTokens": 24,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-040",
+      "latencyMs": 315,
+      "inputTokens": 774,
+      "outputTokens": 24,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-041",
+      "latencyMs": 295,
+      "inputTokens": 1398,
+      "outputTokens": 44,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-043",
+      "latencyMs": 303,
+      "inputTokens": 798,
+      "outputTokens": 25,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-044",
+      "latencyMs": 285,
+      "inputTokens": 928,
+      "outputTokens": 25,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-045",
+      "latencyMs": 316,
+      "inputTokens": 763,
+      "outputTokens": 23,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-046",
+      "latencyMs": 293,
+      "inputTokens": 756,
+      "outputTokens": 24,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-adv-text-047",
+      "latencyMs": 274,
+      "inputTokens": 1228,
+      "outputTokens": 42,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-exp-text-001",
+      "latencyMs": 303,
+      "inputTokens": 2614,
+      "outputTokens": 84,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-exp-text-002",
+      "latencyMs": 314,
+      "inputTokens": 2605,
+      "outputTokens": 84,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-exp-text-003",
+      "latencyMs": 355,
+      "inputTokens": 2597,
+      "outputTokens": 84,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-exp-text-004",
+      "latencyMs": 354,
+      "inputTokens": 2894,
+      "outputTokens": 85,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-exp-text-005",
+      "latencyMs": 327,
+      "inputTokens": 2904,
+      "outputTokens": 85,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-exp-text-006",
+      "latencyMs": 327,
+      "inputTokens": 2783,
+      "outputTokens": 83,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-exp-text-007",
+      "latencyMs": 311,
+      "inputTokens": 2811,
+      "outputTokens": 85,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-exp-text-008",
+      "latencyMs": 332,
+      "inputTokens": 2745,
+      "outputTokens": 84,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-exp-text-009",
+      "latencyMs": 291,
+      "inputTokens": 2780,
+      "outputTokens": 82,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-exp-text-010",
+      "latencyMs": 284,
+      "inputTokens": 2773,
+      "outputTokens": 82,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-exp-text-011",
+      "latencyMs": 346,
+      "inputTokens": 2802,
+      "outputTokens": 85,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-exp-text-012",
+      "latencyMs": 289,
+      "inputTokens": 2914,
+      "outputTokens": 85,
+      "costUsd": null
+    },
+    {
+      "groupId": "ka-exp-text-013",
+      "latencyMs": 301,
+      "inputTokens": 2896,
+      "outputTokens": 85,
+      "costUsd": null
+    }
+  ],
+  "metrics": {
+    "total": 100,
+    "scored": 92,
+    "failed": 0,
+    "abstained": 5,
+    "excludedGold": 3,
+    "accuracy": 0.9891304347826086,
+    "precision": 0.9818181818181818,
+    "recall": 1,
+    "f1": 0.9908256880733944,
+    "brier": 0.04972783505154638,
+    "expectedCalibrationError": 0.15917525773195884,
+    "coverage": 0.7010309278350515,
+    "acceptedAccuracy": 0.9852941176470589,
+    "errorCapture": 0,
+    "byContract": [
+      {
+        "contract": "priceClaim",
+        "total": 5,
+        "scored": 4,
+        "abstained": 1,
+        "excludedGold": 0,
+        "tp": 1,
+        "fp": 1,
+        "tn": 2,
+        "fn": 0,
+        "precision": 0.5,
+        "recall": 1,
+        "f1": 0.6666666666666666,
+        "falsePositiveRate": 0.3333333333333333,
+        "falseNegativeRate": 0
+      },
+      {
+        "contract": "discountClaim",
+        "total": 2,
+        "scored": 2,
+        "abstained": 0,
+        "excludedGold": 0,
+        "tp": 0,
+        "fp": 0,
+        "tn": 2,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "falsePositiveRate": 0,
+        "falseNegativeRate": null
+      },
+      {
+        "contract": "comparativeClaim",
+        "total": 9,
+        "scored": 9,
+        "abstained": 0,
+        "excludedGold": 0,
+        "tp": 6,
+        "fp": 0,
+        "tn": 3,
+        "fn": 0,
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "falsePositiveRate": 0,
+        "falseNegativeRate": 0
+      },
+      {
+        "contract": "superlativeClaim",
+        "total": 9,
+        "scored": 8,
+        "abstained": 1,
+        "excludedGold": 0,
+        "tp": 3,
+        "fp": 0,
+        "tn": 5,
+        "fn": 0,
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "falsePositiveRate": 0,
+        "falseNegativeRate": 0
+      },
+      {
+        "contract": "guaranteeClaim",
+        "total": 15,
+        "scored": 14,
+        "abstained": 0,
+        "excludedGold": 1,
+        "tp": 4,
+        "fp": 0,
+        "tn": 10,
+        "fn": 0,
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "falsePositiveRate": 0,
+        "falseNegativeRate": 0
+      },
+      {
+        "contract": "clinicalOutcomeClaim",
+        "total": 8,
+        "scored": 6,
+        "abstained": 1,
+        "excludedGold": 1,
+        "tp": 4,
+        "fp": 0,
+        "tn": 2,
+        "fn": 0,
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "falsePositiveRate": 0,
+        "falseNegativeRate": 0
+      },
+      {
+        "contract": "quantifiedClaim",
+        "total": 9,
+        "scored": 8,
+        "abstained": 0,
+        "excludedGold": 1,
+        "tp": 7,
+        "fp": 0,
+        "tn": 1,
+        "fn": 0,
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "falsePositiveRate": 0,
+        "falseNegativeRate": 0
+      },
+      {
+        "contract": "availabilityClaim",
+        "total": 4,
+        "scored": 4,
+        "abstained": 0,
+        "excludedGold": 0,
+        "tp": 4,
+        "fp": 0,
+        "tn": 0,
+        "fn": 0,
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "falsePositiveRate": null,
+        "falseNegativeRate": 0
+      },
+      {
+        "contract": "factualAssertion",
+        "total": 28,
+        "scored": 28,
+        "abstained": 0,
+        "excludedGold": 0,
+        "tp": 16,
+        "fp": 0,
+        "tn": 12,
+        "fn": 0,
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "falsePositiveRate": 0,
+        "falseNegativeRate": 0
+      },
+      {
+        "contract": "proofRequirement",
+        "total": 11,
+        "scored": 9,
+        "abstained": 2,
+        "excludedGold": 0,
+        "tp": 9,
+        "fp": 0,
+        "tn": 0,
+        "fn": 0,
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "falsePositiveRate": null,
+        "falseNegativeRate": 0
+      }
+    ],
+    "thresholds": [
+      {
+        "threshold": 0.6,
+        "coverage": 0.9484536082474226,
+        "acceptedAccuracy": 0.9891304347826086,
+        "errorCapture": 0,
+        "acceptedErrors": 1
+      },
+      {
+        "threshold": 0.7,
+        "coverage": 0.8350515463917526,
+        "acceptedAccuracy": 0.9876543209876543,
+        "errorCapture": 0,
+        "acceptedErrors": 1
+      },
+      {
+        "threshold": 0.8,
+        "coverage": 0.7010309278350515,
+        "acceptedAccuracy": 0.9852941176470589,
+        "errorCapture": 0,
+        "acceptedErrors": 1
+      },
+      {
+        "threshold": 0.85,
+        "coverage": 0.6185567010309279,
+        "acceptedAccuracy": 1,
+        "errorCapture": 1,
+        "acceptedErrors": 0
+      },
+      {
+        "threshold": 0.9,
+        "coverage": 0.41237113402061853,
+        "acceptedAccuracy": 1,
+        "errorCapture": 1,
+        "acceptedErrors": 0
+      },
+      {
+        "threshold": 0.95,
+        "coverage": 0.08247422680412371,
+        "acceptedAccuracy": 1,
+        "errorCapture": 1,
+        "acceptedErrors": 0
+      }
+    ],
+    "confidenceBuckets": [
+      {
+        "label": "50–60%",
+        "count": 5,
+        "accuracy": 1,
+        "meanConfidence": 0.542
+      },
+      {
+        "label": "60–70%",
+        "count": 11,
+        "accuracy": 1,
+        "meanConfidence": 0.6463636363636364
+      },
+      {
+        "label": "70–80%",
+        "count": 13,
+        "accuracy": 1,
+        "meanConfidence": 0.736153846153846
+      },
+      {
+        "label": "80–90%",
+        "count": 28,
+        "accuracy": 0.9642857142857143,
+        "meanConfidence": 0.8596428571428572
+      },
+      {
+        "label": "90–100%",
+        "count": 40,
+        "accuracy": 1,
+        "meanConfidence": 0.9274999999999999
+      }
+    ],
+    "latencyMs": {
+      "p50": 314,
+      "p95": 404,
+      "p99": 531
+    },
+    "totalCostUsd": null,
+    "totalInputTokens": 76177,
+    "totalOutputTokens": 2189
+  }
+}

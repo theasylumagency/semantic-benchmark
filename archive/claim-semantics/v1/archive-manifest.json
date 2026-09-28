@@ -1,0 +1,841 @@
+{
+  "archiveId": "claim-semantics-v1",
+  "ontologyVersion": "v1",
+  "archivePurpose": "Immutable, auditable snapshot of the exact current v1 benchmark state before v2 migration.",
+  "capturedAtUtc": "2026-09-28T15:13:07Z",
+  "manifestSelfHashing": "archive-manifest.json is excluded from files to avoid self-reference; archive-manifest.sha256 pins its exact bytes.",
+  "sourceRepository": {
+    "repositoryPathAtCapture": "D:\\desk\\unda project\\unda-semantic-benchmark",
+    "gitHead": "a1aef5a18519c31f8fc4025a3ace01dfd206da7b",
+    "branch": "main",
+    "workingTreeClean": false,
+    "porcelainStatus": [
+      " M datasets/claim-semantics/reviews.json",
+      "?? datasets/claim-semantics/reviews-86e92888-b886-48fe-9b5c-116ea7fcdf2e.tmp",
+      "?? docs/claim-semantics-ontology-v2-implementation-plan.md",
+      "?? docs/claim-semantics-ontology-v2-proposal.md",
+      "?? scripts/verify_claim_semantics_v1_archive.py"
+    ],
+    "preexistingRelevantModifiedOrUntrackedFilesObservedBeforeArchiveTooling": [
+      {
+        "path": "datasets/claim-semantics/reviews.json",
+        "state": "tracked and modified"
+      },
+      {
+        "path": "datasets/claim-semantics/reviews-86e92888-b886-48fe-9b5c-116ea7fcdf2e.tmp",
+        "state": "untracked temporary ledger artifact"
+      },
+      {
+        "path": "docs/claim-semantics-ontology-v2-implementation-plan.md",
+        "state": "untracked v2 design context"
+      },
+      {
+        "path": "docs/claim-semantics-ontology-v2-proposal.md",
+        "state": "untracked v2 design context"
+      }
+    ],
+    "archiveToolingPresentAtCapture": [
+      "scripts/verify_claim_semantics_v1_archive.py (created for this archival phase; not part of the v1 benchmark inputs)"
+    ]
+  },
+  "reviewsLedger": {
+    "canonicalSourcePath": "datasets/claim-semantics/reviews.json",
+    "canonicalArchivedPath": "files/datasets/claim-semantics/reviews.json",
+    "canonicalByteSize": 79648,
+    "canonicalSha256": "73d52e2a45cc380fe9ec131c10a72c977e61bf121fda2e37c8cd348efa6fc19c",
+    "canonicalTopLevelRecords": 297,
+    "canonicalNewestDecisionTimestampUtc": "2026-09-28T05:40:31.142Z",
+    "canonicalSelectionEvidence": [
+      "The application names datasets/claim-semantics/reviews.json as its ledger and writes reviews-<randomUUID>.tmp before atomically renaming that file over reviews.json.",
+      "At inspection, reviews.json was valid JSON, 79,648 bytes, modified 2026-09-28T05:40:31.1486678Z, and had 297 top-level records.",
+      "The only discovered temp file was valid JSON, 14,000 bytes, modified 2026-09-27T10:48:02.3922019Z, with 57 records; every temp key existed in reviews.json and there were zero temp-only keys.",
+      "The temp file's newest decision timestamp was 2026-09-27T10:48:02.390Z, earlier than the canonical ledger's newest decision; no matching Node/Python review-writing process was found at inspection.",
+      "The temporary file is archived as a noncanonical working-tree artifact; it was not selected as canonical."
+    ],
+    "temporaryLedgerArtifacts": [
+      {
+        "sourcePath": "datasets/claim-semantics/reviews-86e92888-b886-48fe-9b5c-116ea7fcdf2e.tmp",
+        "archivedPath": "files/datasets/claim-semantics/reviews-86e92888-b886-48fe-9b5c-116ea7fcdf2e.tmp",
+        "byteSize": 14000,
+        "sha256": "b88440867f83cc0a695d47cd381faa41cd21380b4fc2cd33768b0040ebc6d88a",
+        "recordCount": 57,
+        "canonicalKeySubset": true,
+        "canonical": false
+      }
+    ]
+  },
+  "datasets": {
+    "development": {
+      "sourcePath": "datasets/claim-semantics/development.jsonl",
+      "rowCount": 285,
+      "groupCount": 102,
+      "splitCounts": {
+        "development": 285
+      },
+      "sourceCounts": {
+        "adversarial-batch-01": 48,
+        "adversarial-expansion": 52,
+        "seed": 185
+      },
+      "sha256": "cd59299f0d921ab6d45fed357a11588c47a219a5bf391469d86879a6a6288734",
+      "byteSize": 158420
+    },
+    "validation": {
+      "sourcePath": "datasets/claim-semantics/validation.jsonl",
+      "rowCount": 119,
+      "groupCount": 37,
+      "splitCounts": {
+        "validation": 119
+      },
+      "sourceCounts": {
+        "seed": 119
+      },
+      "sha256": "4f083b2afe102a68bbf7a09a6131e701e4b8c4c0a73f1716eef68e883c429ab7",
+      "byteSize": 59798
+    }
+  },
+  "existingImplementationIdentifiers": {
+    "datasetVersion": {
+      "value": "9072ab74e090",
+      "algorithm": "Current src/lib/benchmark/data.ts datasetVersion(): SHA-256 over each filename then exact bytes in order development.jsonl, validation.jsonl, reviews.json; truncated to 12 lowercase hex characters.",
+      "reproducedReadOnly": true
+    },
+    "protocolVersion": {
+      "value": "fa8e3397e12d9852",
+      "algorithm": "Current src/lib/benchmark/data.ts protocolVersion(): SHA-256 over the listed protocol file names and exact bytes, then compact JSON of effective model/API configuration; truncated to 16 lowercase hex characters.",
+      "reproducedReadOnly": true,
+      "effectiveConfiguration": {
+        "jevModel": "jev-latest",
+        "baselineModel": "gpt-6-sol",
+        "baselineReasoningEffort": "xhigh",
+        "jevApiUrl": "https://api.typesafe.ai/v1/systemone",
+        "baselineApiUrl": "https://api.openai.com/v1/responses"
+      },
+      "v2ProtocolHashCreated": false,
+      "configurationInputSha256": "897c8e268cbc5f0867ee0f24a4b0374adebc127f05c808b56c55bf3bee84bcc6",
+      "environmentResolution": {
+        "loader": "Next.js @next/env development-mode loader, evaluated in a local Node process without importing provider adapters or making requests.",
+        "relevantEnvironmentKeysSetAtCapture": [
+          "JEV_MODEL",
+          "BASELINE_MODEL",
+          "BASELINE_REASONING_EFFORT",
+          "JEV_API_URL",
+          "BASELINE_API_URL"
+        ],
+        "effectiveValuesMatchDocumentedFallbacks": true,
+        "environmentFileArchived": false,
+        "environmentFileExclusion": "The repository .env.local may contain credentials. Its raw bytes and values were not copied; only the protocol hash inputs and a configuration-input fingerprint are recorded."
+      }
+    }
+  },
+  "files": [
+    {
+      "sourcePath": "AGENTS.md",
+      "archivedPath": "files/AGENTS.md",
+      "byteSize": 678,
+      "sha256": "63f2c50380ed6303237cce215ce27af1d620d094c215e28d1b1538a3c070e3bb",
+      "role": "repository-runtime-or-reproduction-context",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "README.md",
+      "archivedPath": "files/README.md",
+      "byteSize": 12474,
+      "sha256": "b9fdd5580fb1e7d16fecaf4b1f6002aa73dcc105eb11b7778d85aa60fbe39c9f",
+      "role": "repository-runtime-or-reproduction-context",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "datasets/claim-semantics/development.jsonl",
+      "archivedPath": "files/datasets/claim-semantics/development.jsonl",
+      "byteSize": 158420,
+      "sha256": "cd59299f0d921ab6d45fed357a11588c47a219a5bf391469d86879a6a6288734",
+      "role": "v1-development-dataset",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "datasets/claim-semantics/reviews-86e92888-b886-48fe-9b5c-116ea7fcdf2e.tmp",
+      "archivedPath": "files/datasets/claim-semantics/reviews-86e92888-b886-48fe-9b5c-116ea7fcdf2e.tmp",
+      "byteSize": 14000,
+      "sha256": "b88440867f83cc0a695d47cd381faa41cd21380b4fc2cd33768b0040ebc6d88a",
+      "role": "noncanonical-temporary-ledger-working-tree-artifact",
+      "sourceState": {
+        "tracked": false,
+        "modified": false,
+        "untracked": true,
+        "gitPorcelain": "??"
+      }
+    },
+    {
+      "sourcePath": "datasets/claim-semantics/reviews.json",
+      "archivedPath": "files/datasets/claim-semantics/reviews.json",
+      "byteSize": 79648,
+      "sha256": "73d52e2a45cc380fe9ec131c10a72c977e61bf121fda2e37c8cd348efa6fc19c",
+      "role": "canonical-v1-review-ledger",
+      "sourceState": {
+        "tracked": true,
+        "modified": true,
+        "untracked": false,
+        "gitPorcelain": " M"
+      }
+    },
+    {
+      "sourcePath": "datasets/claim-semantics/validation.jsonl",
+      "archivedPath": "files/datasets/claim-semantics/validation.jsonl",
+      "byteSize": 59798,
+      "sha256": "4f083b2afe102a68bbf7a09a6131e701e4b8c4c0a73f1716eef68e883c429ab7",
+      "role": "v1-validation-dataset",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "docs/Cases.md",
+      "archivedPath": "files/docs/Cases.md",
+      "byteSize": 27002,
+      "sha256": "68af6e19009558717eb4d4df46640f8efaf4d58dee34a59539fd0bbb11199312",
+      "role": "v1-methodology-or-protocol-documentation",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "docs/brief.md",
+      "archivedPath": "files/docs/brief.md",
+      "byteSize": 27799,
+      "sha256": "f483cd34fb8e5edda08784d5f6fd9381f755b5bd6ce390fab644d06a64f13b29",
+      "role": "v1-methodology-or-protocol-documentation",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "docs/claim-semantics-ontology-v2-implementation-plan.md",
+      "archivedPath": "files/docs/claim-semantics-ontology-v2-implementation-plan.md",
+      "byteSize": 40958,
+      "sha256": "07f0508f4f86f03a40632140a05b0a3de1986b863ca76211830e8d66507322fc",
+      "role": "contemporaneous-v2-design-context-not-v1-protocol",
+      "sourceState": {
+        "tracked": false,
+        "modified": false,
+        "untracked": true,
+        "gitPorcelain": "??"
+      }
+    },
+    {
+      "sourcePath": "docs/claim-semantics-ontology-v2-proposal.md",
+      "archivedPath": "files/docs/claim-semantics-ontology-v2-proposal.md",
+      "byteSize": 41566,
+      "sha256": "f1fdedc46dc6f28eae56b5df8e5fe126591b8b9f616c2c7ffe115e02c7f4aca8",
+      "role": "contemporaneous-v2-design-context-not-v1-protocol",
+      "sourceState": {
+        "tracked": false,
+        "modified": false,
+        "untracked": true,
+        "gitPorcelain": "??"
+      }
+    },
+    {
+      "sourcePath": "docs/factualAssertion.md",
+      "archivedPath": "files/docs/factualAssertion.md",
+      "byteSize": 19581,
+      "sha256": "ec5e419320802f72c012d66d1a32eb8c19fe921268055097f60d426bf4d71e07",
+      "role": "v1-methodology-or-protocol-documentation",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "docs/gold-review.md",
+      "archivedPath": "files/docs/gold-review.md",
+      "byteSize": 3702,
+      "sha256": "920e0681a51287ae81eec828b8dd74449fffa11c287a18f79fd4a2336d9be499",
+      "role": "v1-methodology-or-protocol-documentation",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "docs/methodology.md",
+      "archivedPath": "files/docs/methodology.md",
+      "byteSize": 4073,
+      "sha256": "eb9b60d88fa3fb3086723758f8de3cd2a299759498b2d7e50e3f8e44ecd3f66c",
+      "role": "v1-methodology-or-protocol-documentation",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "docs/ontology-review.md",
+      "archivedPath": "files/docs/ontology-review.md",
+      "byteSize": 7216,
+      "sha256": "55a46ac5d2981aeadfabc885e1bd3fa655d9deafee8d8cd8c8e3c1da8ebf70e7",
+      "role": "v1-methodology-or-protocol-documentation",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "next.config.ts",
+      "archivedPath": "files/next.config.ts",
+      "byteSize": 143,
+      "sha256": "2911daa8a390abf38fbab45aabd5d897a17a34b79572a64e5f51710f7c41cc7f",
+      "role": "repository-runtime-or-reproduction-context",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "package-lock.json",
+      "archivedPath": "files/package-lock.json",
+      "byteSize": 236722,
+      "sha256": "87d8d623fec1821fd25c6cb2b1a8a39701b2418f62a984c618e24e0ba7f5eb64",
+      "role": "repository-runtime-or-reproduction-context",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "package.json",
+      "archivedPath": "files/package.json",
+      "byteSize": 666,
+      "sha256": "0156b796cd746d0bf9124a3679365a02ecaa27aa8a506321ac4a26906f68f4b8",
+      "role": "repository-runtime-or-reproduction-context",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "reports/development-checkpoint-2026-09-27.md",
+      "archivedPath": "files/reports/development-checkpoint-2026-09-27.md",
+      "byteSize": 3925,
+      "sha256": "f8bd106a9ff5d1cd1666a986dd3d0fded866d172c616c7fd11f8b150aae293c7",
+      "role": "historical-development-checkpoint",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "reports/runs/.gitkeep",
+      "archivedPath": "files/reports/runs/.gitkeep",
+      "byteSize": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "role": "historical-report-or-provider-run-input",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "reports/runs/run-0920a697-faf2-4dcb-ad7f-bcc323c736a3.json",
+      "archivedPath": "files/reports/runs/run-0920a697-faf2-4dcb-ad7f-bcc323c736a3.json",
+      "byteSize": 17684,
+      "sha256": "bc249fa3f4c74b17c118d2478715474e668fef5d2753600e72f41220dbc5b78c",
+      "role": "historical-report-or-provider-run-input",
+      "sourceState": {
+        "tracked": false,
+        "modified": false,
+        "untracked": true,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "reports/runs/run-1cb39504-65f9-4603-aace-bcd66f197f4a.json",
+      "archivedPath": "files/reports/runs/run-1cb39504-65f9-4603-aace-bcd66f197f4a.json",
+      "byteSize": 26945,
+      "sha256": "5db3a5348ecc3118474216edef2ea853c298ac7937de734c6ca6092e69722ae1",
+      "role": "historical-report-or-provider-run-input",
+      "sourceState": {
+        "tracked": false,
+        "modified": false,
+        "untracked": true,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "reports/runs/run-2a91a7c1-0185-4109-b0e4-fb5baae35d87.json",
+      "archivedPath": "files/reports/runs/run-2a91a7c1-0185-4109-b0e4-fb5baae35d87.json",
+      "byteSize": 27071,
+      "sha256": "9f37d8425715a13ff0abad75ac0768d8656b21bd32493a8ea06ea134d7cc8be5",
+      "role": "historical-report-or-provider-run-input",
+      "sourceState": {
+        "tracked": false,
+        "modified": false,
+        "untracked": true,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "reports/runs/run-495062a0-6cbd-4d5c-8b21-221e207444d4.json",
+      "archivedPath": "files/reports/runs/run-495062a0-6cbd-4d5c-8b21-221e207444d4.json",
+      "byteSize": 27031,
+      "sha256": "8115ba701f2fa746cedcc3e549a73ab733ee008a309f7e3100ae69a92fcb78d3",
+      "role": "historical-report-or-provider-run-input",
+      "sourceState": {
+        "tracked": false,
+        "modified": false,
+        "untracked": true,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "reports/runs/run-56ff8e2e-14cc-4b6a-b67a-fc1b793bd03e.json",
+      "archivedPath": "files/reports/runs/run-56ff8e2e-14cc-4b6a-b67a-fc1b793bd03e.json",
+      "byteSize": 17580,
+      "sha256": "7cde8a8e09c36895519be3db3737e6d2f7dc487028b4d54a6a994ff093d63ea4",
+      "role": "historical-report-or-provider-run-input",
+      "sourceState": {
+        "tracked": false,
+        "modified": false,
+        "untracked": true,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "reports/runs/run-7474b2d7-16c4-4aa3-b684-30d455e37bdb.json",
+      "archivedPath": "files/reports/runs/run-7474b2d7-16c4-4aa3-b684-30d455e37bdb.json",
+      "byteSize": 13096,
+      "sha256": "13e3701c9b73d9b344d28fa72de33c704beba3a634ac92d10c54e32d22bc45f2",
+      "role": "historical-report-or-provider-run-input",
+      "sourceState": {
+        "tracked": false,
+        "modified": false,
+        "untracked": true,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "reports/runs/run-959e9e43-c709-4b9c-a28c-7496032bc0a3.json",
+      "archivedPath": "files/reports/runs/run-959e9e43-c709-4b9c-a28c-7496032bc0a3.json",
+      "byteSize": 27035,
+      "sha256": "a70a26f702b01069750e71d0045c95963c76d5961352bc070e85570a666a42f9",
+      "role": "historical-report-or-provider-run-input",
+      "sourceState": {
+        "tracked": false,
+        "modified": false,
+        "untracked": true,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "reports/runs/run-d9d8d98f-0c64-40b6-9ba0-5bf1134e70fb.json",
+      "archivedPath": "files/reports/runs/run-d9d8d98f-0c64-40b6-9ba0-5bf1134e70fb.json",
+      "byteSize": 17662,
+      "sha256": "cba53876eb0d58d5304be5174de1cd715b64b8b1be6a65e491c35e40e8f4372a",
+      "role": "historical-report-or-provider-run-input",
+      "sourceState": {
+        "tracked": false,
+        "modified": false,
+        "untracked": true,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "reports/runs/run-edcc84d2-504e-4c1e-8d76-c40561a8cc84.json",
+      "archivedPath": "files/reports/runs/run-edcc84d2-504e-4c1e-8d76-c40561a8cc84.json",
+      "byteSize": 17579,
+      "sha256": "b82811200490e12161cb6e91e750e4213adb0c0e6cd167ac2bbfdd9fa4a6a68c",
+      "role": "historical-report-or-provider-run-input",
+      "sourceState": {
+        "tracked": false,
+        "modified": false,
+        "untracked": true,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "scripts/adversarial_cases.py",
+      "archivedPath": "files/scripts/adversarial_cases.py",
+      "byteSize": 16228,
+      "sha256": "5759420448e907c94c876fea626b713f243e81edb9e431cee327cd450473d1f8",
+      "role": "adversarial-case-source",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "scripts/check_dataset.py",
+      "archivedPath": "files/scripts/check_dataset.py",
+      "byteSize": 7123,
+      "sha256": "8912bdc6ab629952d9255257ce71daf04c6bc8baf1daef7d02a7897f03121e6b",
+      "role": "v1-benchmark-generation-validation-or-local-fixture-source",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "scripts/check_review_state.py",
+      "archivedPath": "files/scripts/check_review_state.py",
+      "byteSize": 6119,
+      "sha256": "f2fe48f25c43c52474477f2f997c5364d4adab9561254751147eee2f6c26c4a8",
+      "role": "v1-benchmark-generation-validation-or-local-fixture-source",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "scripts/check_stability.mjs",
+      "archivedPath": "files/scripts/check_stability.mjs",
+      "byteSize": 2562,
+      "sha256": "6c9bf1c6b87a5d4e7ed4fc2db4b41bec123160160ab7088852bccb987c01a933",
+      "role": "v1-benchmark-generation-validation-or-local-fixture-source",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "scripts/generate_dataset.py",
+      "archivedPath": "files/scripts/generate_dataset.py",
+      "byteSize": 34702,
+      "sha256": "8d8e0e612599e242a96d5665a1b48c9cc6a4603a8aaa2eb4a3883758fc4b3d45",
+      "role": "dataset-generator-and-seed-cases",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "scripts/mock-baseline.mjs",
+      "archivedPath": "files/scripts/mock-baseline.mjs",
+      "byteSize": 1450,
+      "sha256": "1e0e9f02419b9b467b4c72362b1ef4384a8c9aced922d0e30b24f2fb861a4189",
+      "role": "v1-benchmark-generation-validation-or-local-fixture-source",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "scripts/mock-jev.mjs",
+      "archivedPath": "files/scripts/mock-jev.mjs",
+      "byteSize": 965,
+      "sha256": "6a73361c19a5d31f34775082643389ddeed91a6ab87f7d65a411fb914843c9ed",
+      "role": "v1-benchmark-generation-validation-or-local-fixture-source",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "scripts/stability_report.mjs",
+      "archivedPath": "files/scripts/stability_report.mjs",
+      "byteSize": 936,
+      "sha256": "b46205e59414dc07b680e97f2ecad306b9e4f661e9c632f9c5b0b9525ccac993",
+      "role": "v1-benchmark-generation-validation-or-local-fixture-source",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "src/app/api/gold-review/route.ts",
+      "archivedPath": "files/src/app/api/gold-review/route.ts",
+      "byteSize": 1816,
+      "sha256": "e30cb184218b0e47c43c3a4f93b2e10e8c26e8dd1f398758758172c5084e16b6",
+      "role": "v1-benchmark-workbench-or-review-interface",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "src/app/api/workbench/route.ts",
+      "archivedPath": "files/src/app/api/workbench/route.ts",
+      "byteSize": 6352,
+      "sha256": "a29dabea1478aa819cfcda4106c6c389893632e52fb6ab9587ef57223c86fe6f",
+      "role": "v1-benchmark-workbench-or-review-interface",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "src/app/gold-review/page.tsx",
+      "archivedPath": "files/src/app/gold-review/page.tsx",
+      "byteSize": 287,
+      "sha256": "2e5be455ac9c5e506652507ce480331dede01cc70d08e696f67375dee1c732cc",
+      "role": "v1-benchmark-workbench-or-review-interface",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "src/app/gold-review/review.css",
+      "archivedPath": "files/src/app/gold-review/review.css",
+      "byteSize": 6162,
+      "sha256": "47a1eaded226af2f1e1bb4ca25d01f03f37afaa889218f074246e8c6f9f1ee0b",
+      "role": "v1-benchmark-workbench-or-review-interface",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "src/app/gold-review/review.tsx",
+      "archivedPath": "files/src/app/gold-review/review.tsx",
+      "byteSize": 16094,
+      "sha256": "7716217080d9174feb5572a9db8f11b3656087dc7c4f7dd69477817adca055f2",
+      "role": "v1-benchmark-workbench-or-review-interface",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "src/app/workbench.tsx",
+      "archivedPath": "files/src/app/workbench.tsx",
+      "byteSize": 34862,
+      "sha256": "b55740a877207fb5d413910827b7bd77a5b49e50d02d3830aed79b462f84b6f5",
+      "role": "v1-benchmark-workbench-or-review-interface",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "src/lib/benchmark/contracts.ts",
+      "archivedPath": "files/src/lib/benchmark/contracts.ts",
+      "byteSize": 6291,
+      "sha256": "32f9c00ebde26d9a7af9e974dfed788e3d7c15a0e2323bcf2b6e1294fb0a79f8",
+      "role": "canonical-v1-contract-definitions",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "src/lib/benchmark/data.ts",
+      "archivedPath": "files/src/lib/benchmark/data.ts",
+      "byteSize": 10098,
+      "sha256": "d2551890863467b7c1b928e63788387d287cb23dafb552d574184255329be898",
+      "role": "dataset-protocol-review-digest-and-ledger-implementation",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "src/lib/benchmark/gold-review.ts",
+      "archivedPath": "files/src/lib/benchmark/gold-review.ts",
+      "byteSize": 3365,
+      "sha256": "f3cb56b4006d91345b7a41e19da3b8787a66c9648bbf6cc0654e3e4bfbdbb30d",
+      "role": "v1-benchmark-runtime-source",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "src/lib/benchmark/metrics.ts",
+      "archivedPath": "files/src/lib/benchmark/metrics.ts",
+      "byteSize": 5409,
+      "sha256": "44681a36cebdddde97b622597d433fb9cae6d4b14afc0d6904413c36c97ba508",
+      "role": "scoring-implementation",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "src/lib/benchmark/providers.ts",
+      "archivedPath": "files/src/lib/benchmark/providers.ts",
+      "byteSize": 9126,
+      "sha256": "b3af1bdf2cc5f0ceb7d93457ffc1387ac4ebff80eec7fb9e97b9ccf27f09eda7",
+      "role": "provider-prompts-and-adapters",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "src/lib/benchmark/review-rules.ts",
+      "archivedPath": "files/src/lib/benchmark/review-rules.ts",
+      "byteSize": 184,
+      "sha256": "abf372402415c093a41d50ca3d7ace2f34f07f7d23dadaf94119ed77187f62ba",
+      "role": "gold-review-rules",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "src/lib/benchmark/stability.ts",
+      "archivedPath": "files/src/lib/benchmark/stability.ts",
+      "byteSize": 4666,
+      "sha256": "1c70a07b6b6b2b90ea218bdfc84fe3fbf90e555af26f30edaaef88ccc5c6772d",
+      "role": "stability-implementation",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "src/lib/benchmark/types.ts",
+      "archivedPath": "files/src/lib/benchmark/types.ts",
+      "byteSize": 2439,
+      "sha256": "17588234a363bf18a12029567eec2d6af7a237c5147977c2878dac65ce40cc37",
+      "role": "benchmark-types-and-schema",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": "tsconfig.json",
+      "archivedPath": "files/tsconfig.json",
+      "byteSize": 670,
+      "sha256": "5c51df4c59f4510d8c7dadf07a5c32132228826a3b331da5e286207b4df7ef9c",
+      "role": "repository-runtime-or-reproduction-context",
+      "sourceState": {
+        "tracked": true,
+        "modified": false,
+        "untracked": false,
+        "gitPorcelain": "  "
+      }
+    },
+    {
+      "sourcePath": null,
+      "archivedPath": "state/git-status-short-branch.txt",
+      "byteSize": 295,
+      "sha256": "cec47530cfc6cf0f3be7c8b7e6ec28199ef31813540fb9d0f05f53c0a0f0c5c7",
+      "role": "repository-state",
+      "sourceStatus": "generated-snapshot",
+      "sourceDescription": "git status --short --branch --untracked-files=all"
+    },
+    {
+      "sourcePath": null,
+      "archivedPath": "state/git-diff.patch",
+      "byteSize": 82300,
+      "sha256": "62ebc410fd648ecec9ca77409863c22fc239e484d1406d8681b9a5ab7c8be808",
+      "role": "working-tree-diff",
+      "sourceStatus": "generated-snapshot",
+      "sourceDescription": "git diff --binary -- before archive files were added"
+    },
+    {
+      "sourcePath": null,
+      "archivedPath": "state/git-diff-cached.patch",
+      "byteSize": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "index-diff",
+      "sourceStatus": "generated-snapshot",
+      "sourceDescription": "git diff --cached --binary -- before archive files were added"
+    },
+    {
+      "sourcePath": null,
+      "archivedPath": "state/git-head.txt",
+      "byteSize": 41,
+      "sha256": "d50056870a2010c0c0ad408aec434c7a50c838a95c014ec5ae3edff3424f9736",
+      "role": "repository-identity",
+      "sourceStatus": "generated-snapshot",
+      "sourceDescription": "git rev-parse HEAD"
+    },
+    {
+      "sourcePath": null,
+      "archivedPath": "state/git-branch.txt",
+      "byteSize": 5,
+      "sha256": "6403203dd5a0867eb14d104ee8a73730bd72dd9ad92e78d996a6dba0a5dcfc01",
+      "role": "repository-identity",
+      "sourceStatus": "generated-snapshot",
+      "sourceDescription": "git branch --show-current"
+    }
+  ]
+}

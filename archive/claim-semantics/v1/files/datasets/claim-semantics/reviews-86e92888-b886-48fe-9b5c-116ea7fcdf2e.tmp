@@ -1,0 +1,460 @@
+{
+  "ka-adv-001-superlativeClaim": {
+    "digest": "4e1c4d03022cc7cb9c16651ed29a2868d81629d391bb08f583005b32dce7c266",
+    "currentGold": false,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T08:44:51.110Z"
+    }
+  },
+  "ka-adv-002-guaranteeClaim": {
+    "digest": "b5e6fa2c0b62ebe8e8d58d85998615f926e32bd5fcd467a78b15d5a497ddcfb2",
+    "currentGold": false,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T08:46:41.010Z"
+    }
+  },
+  "ka-adv-003-discountClaim": {
+    "digest": "a4cac5bbe2a338694c795ef8df83ae5c40758314198a84638e74109f1946807b",
+    "currentGold": false,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T08:48:44.035Z"
+    }
+  },
+  "ka-adv-004-factualAssertion": {
+    "digest": "b3c756bbfff4fa22d2f0aa58874783b3314385b33d5eded325221d0294e69f49",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T08:49:19.812Z"
+    }
+  },
+  "ka-adv-005-factualAssertion": {
+    "digest": "d6678e57ed563bedee47de904359fb361e1686b7dfce36bb41748cd90d2baa14",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T08:49:51.095Z"
+    }
+  },
+  "ka-adv-006-guaranteeClaim": {
+    "digest": "82756775288112bc5c8d1010c2d8ceec5e8af64fd81730014da3c45f8582ab09",
+    "currentGold": false,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T08:50:01.419Z"
+    }
+  },
+  "ka-adv-007-clinicalOutcomeClaim": {
+    "digest": "c8246ce647fe28c64bac7b2bf5beb81b89dadd4416004da8a2c54ebe7bfbb278",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T08:50:27.140Z"
+    }
+  },
+  "ka-adv-008-superlativeClaim": {
+    "digest": "cc04dbf0c4acb9d8d971e0daf6a3c7f4f57009cb45fe5b74f59852640b83e976",
+    "currentGold": false,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T08:50:43.672Z"
+    }
+  },
+  "ka-adv-009-superlativeClaim": {
+    "digest": "30af90030bb9f4bf0e2f6043022519b1258d633b62493458805efcc55529aceb",
+    "currentGold": false,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T08:51:03.278Z"
+    }
+  },
+  "ka-adv-010-factualAssertion": {
+    "digest": "91059614c9382422fc6c88374d10b153379fd0f1a279f1154d6c17f1f17ff782",
+    "currentGold": false,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T08:51:20.483Z"
+    }
+  },
+  "ka-adv-011-clinicalOutcomeClaim": {
+    "digest": "7dc8151e6f6da52a5e86502a7233caea33b586bc91ecb3df1670ee40b8fe528c",
+    "currentGold": false,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T08:52:19.774Z"
+    }
+  },
+  "ka-adv-012-guaranteeClaim": {
+    "digest": "8c23c393bd03d6a67e2bdeda0489ee84c0ecfe232975278cec2cdcebb35982b0",
+    "currentGold": false,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T08:52:56.891Z"
+    }
+  },
+  "ka-adv-013-factualAssertion": {
+    "digest": "1ea768010c25cd03cf5211f85a99f9461c21d5bae4bf29654b8eb3b2ad0b5519",
+    "currentGold": false,
+    "first": {
+      "status": "needs-correction",
+      "createdAt": "2026-09-27T10:33:10.495Z",
+      "proposedGold": true,
+      "reason": "Brand does not adopt the quoted evaluation as its own fact, but it does assert a verifiable meta-fact about what appears frequently in its reviews."
+    }
+  },
+  "ka-adv-014-priceClaim": {
+    "digest": "59df14ae8cf9ab67126ea44bb1a30f1a1a7a25dc85f152254aba4942538b21e9",
+    "currentGold": false,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:35:04.360Z"
+    }
+  },
+  "ka-adv-015-superlativeClaim": {
+    "digest": "e0b3adc31b4ee117e25815a92e8947bee392fd9d3e47962e7ebe3efc98c0413e",
+    "currentGold": false,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:35:23.625Z"
+    }
+  },
+  "ka-adv-016-guaranteeClaim": {
+    "digest": "5637f695316429da2e556e98f73cdeb422daec825f22aa36327d0e0cdf2e2c87",
+    "currentGold": false,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:35:33.564Z"
+    }
+  },
+  "ka-adv-019-factualAssertion": {
+    "digest": "a21ff24c86ce633a82e302bf79af871f71a6599590c42602094b7817a08d6c00",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:37:21.512Z"
+    }
+  },
+  "ka-adv-020-superlativeClaim": {
+    "digest": "fed00e4352e86289fa21251d2ab23a60b74b74093597e686e9596de7fbfbcd5f",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:37:26.031Z"
+    }
+  },
+  "ka-adv-021-factualAssertion": {
+    "digest": "cd7c68e2ab80b813eda2520fd5c3af807729340c2ba489d79ac77204ccd94180",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:37:32.654Z"
+    }
+  },
+  "ka-adv-022-quantifiedClaim": {
+    "digest": "4cb70a61021466075c9b2fe2f293cac17c23beaf4a1bf900c298fc1efaf6010a",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:37:35.704Z"
+    }
+  },
+  "ka-adv-023-factualAssertion": {
+    "digest": "e66eeeb75c01d68a23f5c4dcdbeb0724f6316b1b0de5d5eecc822d427a355810",
+    "currentGold": false,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:37:49.408Z"
+    }
+  },
+  "ka-adv-024-factualAssertion": {
+    "digest": "e0e48b2a9006f24e0f55d77f7a0629229cc8b3ff965083bb9ca52c3d7887946e",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:37:55.684Z"
+    }
+  },
+  "ka-adv-025-quantifiedClaim": {
+    "digest": "7d737ab9df18307afd362aea578da2fb20169a489b9f033708c2ff9a10b01a92",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:37:58.350Z"
+    }
+  },
+  "ka-adv-026-factualAssertion": {
+    "digest": "86b0ba55c91646782a9e3531631bc120f8cfb24e430911fabd67304e466d4974",
+    "currentGold": false,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:38:04.743Z"
+    }
+  },
+  "ka-adv-029-factualAssertion": {
+    "digest": "4e1bbfd4bc5c63b88862375e160a0a1bc2f07492b0780ff6ec9a8ed370fea3c8",
+    "currentGold": false,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:38:11.396Z"
+    }
+  },
+  "ka-adv-030-clinicalOutcomeClaim": {
+    "digest": "94f3a7df80d9f97541e5693b60dd7be1d0913d447c642ddd54c373f3635f910a",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:38:17.167Z"
+    }
+  },
+  "ka-adv-031-factualAssertion": {
+    "digest": "8c82d60c0f32ee7b81905348f32af3a376b6374d543cb9f5aaf6733066d03c86",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:38:21.964Z"
+    }
+  },
+  "ka-adv-032-availabilityClaim": {
+    "digest": "2f7c2fc191b0facec84b3293037204e890c5de85ed76c73fe224a6316b9dae54",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:38:33.573Z"
+    }
+  },
+  "ka-adv-033-factualAssertion": {
+    "digest": "e6d5d74ef7a34b94adaf257d7a8a63aa32116b03c697a1a4fc8d248fe06ac0d3",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:38:36.698Z"
+    }
+  },
+  "ka-adv-034-guaranteeClaim": {
+    "digest": "52b87425f2b717af2e8204df726d7a220d285aaf31e8136e0e08d9581eed30d2",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:38:42.489Z"
+    }
+  },
+  "ka-adv-035-comparativeClaim": {
+    "digest": "4695dbe0745462f3b66786bc7af5d5d273aa5570a5ddd90f6b251f6779bc4e84",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:39:06.518Z"
+    }
+  },
+  "ka-adv-036-comparativeClaim": {
+    "digest": "c14cce9750e48cc07bf334f365eaac39a2bcf007d9cf7ab9030be8826a7fce89",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:39:22.770Z"
+    }
+  },
+  "ka-adv-037-quantifiedClaim": {
+    "digest": "5921120244516d0e97cfa3c71fc5d3ff77d5d5caa0363b80f17776530cca68ed",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:39:24.556Z"
+    }
+  },
+  "ka-adv-038-factualAssertion": {
+    "digest": "bf5c8ea09f156b76ee5fd3d2054f9cc435f8feaf181c598809dcbef1d2e2e346",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:39:27.617Z"
+    }
+  },
+  "ka-adv-039-comparativeClaim": {
+    "digest": "ef113a2db1a6a8b589a3b7171a77b43ccf2360816d757e5855a85d667c02b782",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:39:39.061Z"
+    }
+  },
+  "ka-adv-040-comparativeClaim": {
+    "digest": "fcbd750aaeb1bc5cd47ae52537c7f81504095e5dd5ca131ae62dcd58a2e14ef5",
+    "currentGold": false,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:39:45.925Z"
+    }
+  },
+  "ka-adv-041-comparativeClaim": {
+    "digest": "90796f6505867ed6cdae8a4daf14af2bc4cb13b833f2b570802cecfd853e78f7",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:39:53.028Z"
+    }
+  },
+  "ka-adv-042-proofRequirement": {
+    "digest": "a8abc59f81f0fd49a2ae678f630e0e315529efcd15b0bc026e4a0a0551c98e7f",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:39:56.968Z"
+    }
+  },
+  "ka-adv-043-superlativeClaim": {
+    "digest": "2c5442d8180fa5d5b56fd888433b21e279bb2a3d11fd6dc1ee0d0593ec97b9cc",
+    "currentGold": false,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:40:04.966Z"
+    }
+  },
+  "ka-adv-044-clinicalOutcomeClaim": {
+    "digest": "62a4231429c04caf9bd16f65b5e8c82ee76077a6314f31ccc4aef5aa2c8b6ed4",
+    "currentGold": false,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:42:01.474Z"
+    }
+  },
+  "ka-adv-045-priceClaim": {
+    "digest": "2896986c33ac4b8f1fc85cd283277a6e0f1cd74299108c11a9ca4c142ec1e66b",
+    "currentGold": false,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:42:10.152Z"
+    }
+  },
+  "ka-adv-046-guaranteeClaim": {
+    "digest": "e8bf45bd925bb5b5f9da341670ac19651f94bcd1be245bbc6a16461b9e31b327",
+    "currentGold": false,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:42:16.251Z"
+    }
+  },
+  "ka-adv-047-priceClaim": {
+    "digest": "aeed4233d9a77ed2a182f583da72b8e526a8c8d1fb5519da557ade7dc0719ac8",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:42:23.795Z"
+    }
+  },
+  "ka-adv-048-quantifiedClaim": {
+    "digest": "1868dab26c622ec465b08ccf84ad307cb129aae600f6248eb8ce57fd05280f1e",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:42:26.825Z"
+    }
+  },
+  "ka-exp-001-availabilityClaim": {
+    "digest": "037ace56b8ea9280e2f1832bab1c37e0818a3263ba380e305dce9d591c0d2f3e",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:42:31.469Z"
+    }
+  },
+  "ka-exp-001-factualAssertion": {
+    "digest": "b16fd3ee9119eb97452f6a43e94d648b1302555ff75b229d69b283868257a667",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:42:36.004Z"
+    }
+  },
+  "ka-exp-001-quantifiedClaim": {
+    "digest": "66b8de115266b28df0642818d1c5402ab4e43a43852798082e8cf12a338bc550",
+    "currentGold": false,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:42:40.116Z"
+    }
+  },
+  "ka-exp-001-guaranteeClaim": {
+    "digest": "b4bc7f811843ba91a09d24025238da29706dd601b1269220554fab69389c7bc8",
+    "currentGold": false,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:43:19.815Z"
+    }
+  },
+  "ka-exp-002-availabilityClaim": {
+    "digest": "b4e59b7c2fbf5e11dc51e5196ab792edd6f2be7a40219bcc967f09cecfd72769",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:46:34.161Z"
+    }
+  },
+  "ka-exp-002-factualAssertion": {
+    "digest": "94bd5e8625c5095aa096f4679ed8856b38c887a733331091bf87f17a251117ee",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:46:36.868Z"
+    }
+  },
+  "ka-exp-002-quantifiedClaim": {
+    "digest": "6f41d6b6b1827721b3f7071beeac7bf865ebc967ba671ff1f1ea44781a687133",
+    "currentGold": false,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:46:39.869Z"
+    }
+  },
+  "ka-exp-002-guaranteeClaim": {
+    "digest": "86e67f3d9fd8fe1c24a82661e86fa6f6c9d9abc211ea4fc1cfa5114e63851fac",
+    "currentGold": false,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:46:42.700Z"
+    }
+  },
+  "ka-exp-003-availabilityClaim": {
+    "digest": "24eef95d70bb86816e9f1b3f13e49b3701ead0407bfcd91326b2d14f7422d63c",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:46:50.087Z"
+    }
+  },
+  "ka-exp-003-priceClaim": {
+    "digest": "30d5ef29c5a9e5acbf6a6b7308c66ffec40fd0bc5ddd801db6d59d137a32210a",
+    "currentGold": false,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:47:19.330Z"
+    }
+  },
+  "ka-exp-003-guaranteeClaim": {
+    "digest": "f7dda4bc616b9df46c5dd731841558e245c2ab916d05d9ec6e3e6ff1e4ec4c49",
+    "currentGold": false,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:47:22.779Z"
+    }
+  },
+  "ka-exp-003-factualAssertion": {
+    "digest": "bb3b37f4801a4df9aefd303c1c1fc2a773e3fc12e27ba07d30a0a5e94f0b8c57",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:47:52.038Z"
+    }
+  },
+  "ka-exp-004-clinicalOutcomeClaim": {
+    "digest": "8c6c358c0d79fc27c979689fcbe5fa3005c0618c204205a74adef493660eb108",
+    "currentGold": true,
+    "first": {
+      "status": "reviewed",
+      "createdAt": "2026-09-27T10:48:02.390Z"
+    }
+  }
+}
